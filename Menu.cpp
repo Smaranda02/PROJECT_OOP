@@ -37,7 +37,7 @@ void Menu::draw( sf::RenderWindow &window )
 void Menu::MoveDown() {
     if(optionsSelected + 1 <= optionsNumber)
     {
-        options[optionsSelected].setFillColor(sf::Color::White);
+        options[optionsSelected].setFillColor(sf::Color::Black);
 
         optionsSelected++;
         if(optionsSelected == optionsNumber+1) {
@@ -53,7 +53,7 @@ void Menu::MoveDown() {
 void Menu::MoveUp() {
     if(optionsSelected - 1 >=0)
     {
-        options[optionsSelected].setFillColor(sf::Color::White);
+        options[optionsSelected].setFillColor(sf::Color::Black);
 
         optionsSelected--;
         if(optionsSelected == -1) {

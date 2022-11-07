@@ -7,20 +7,21 @@
 
 void Game::start_game() {
 
-    MENU.create(sf::VideoMode({800, 700}), "MAIN MENU", sf::Style::Default);
-
-    MENU.setVerticalSyncEnabled(true);
-
-    MENU.setFramerateLimit(60);
-
-    Menu menu(MENU.getSize().x, MENU.getSize().y);   //agregare
-
     sf::RectangleShape background;
     background.setSize(sf::Vector2f(960,720));
     sf::Texture MenuTexture;
     MenuTexture.loadFromFile("Jocul-Cuvintelor-Meniu.jpg");
     background.setTexture(&MenuTexture);
 
+
+
+    MENU.create(sf::VideoMode({800, 700}), "MAIN MENU", sf::Style::Default);
+
+    MENU.setVerticalSyncEnabled(true);
+
+    MENU.setFramerateLimit(60);
+
+    Menu menu(float(MENU.getSize().x), float(MENU.getSize().y));   //agregare
 
     while(MENU.isOpen()) {
 
@@ -70,7 +71,7 @@ void Game::start_game() {
                     {
                         while(SignUp.isOpen())
                         {
-                            sf::Event firstEvent;
+                            sf::Event firstEvent{} ;
                             while(SignUp.pollEvent((firstEvent)))
                             {
                                 if(firstEvent.type==sf::Event::Closed)
@@ -94,7 +95,7 @@ void Game::start_game() {
                     {
                         while(Rules.isOpen())
                         {
-                            sf::Event secondEvent;
+                            sf::Event secondEvent{};
                             while(Rules.pollEvent((secondEvent)))
                             {
                                 if(secondEvent.type==sf::Event::Closed)
@@ -135,7 +136,7 @@ void Game::start_game() {
 //rectangle.setFillColor(sf::Color(150, 50, 250));
 //window.draw(rectangle);
 
-        menu.draw(MENU);
+
 
 
 // select the font
@@ -153,8 +154,9 @@ void Game::start_game() {
         text.setStyle(sf::Text::Bold | sf::Text::Underlined);
 
 // inside the main loop, between window.clear() and window.display()
-        MENU.draw(text);
         MENU.draw(background);
+        MENU.draw(text);
+        menu.draw(MENU);
         MENU.display();
 
     }
