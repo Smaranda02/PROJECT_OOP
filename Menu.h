@@ -6,6 +6,7 @@
 #define OOP_MENU_H
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include "Rules.h"
 
 class Menu {
 private:
@@ -13,6 +14,9 @@ private:
     //Button Rules;
     sf::Text options[2];
     sf::Font font;
+
+    Rules RULES;
+
     int optionsNumber=2;
     int optionsSelected;
 
@@ -23,9 +27,10 @@ public:
     void draw( sf::RenderWindow &window );
     void MoveUp();
     void MoveDown();
-    void MainMenuPressed();
+    void RenderRules(sf::RenderWindow RULES_PAGE);
+    int MainMenuPressed();
 
-   // ~Menu();
+   ~Menu()=default;
 
 
 };

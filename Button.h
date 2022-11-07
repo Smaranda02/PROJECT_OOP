@@ -16,7 +16,7 @@ private:
     sf::Color hoverColor;
     sf::Text text;
     sf::Font font;
-    sf::RectangleShape shape;
+    sf::RectangleShape button;
     bool pressed;
     bool hover;
     short unsigned buttonState;
@@ -28,7 +28,8 @@ public:
         this->idleColor=idleColor;
     }
     */
-    ~Button();
+
+    ~Button()=default;
 
     void update(const sf::Vector2f mousePos);
 };

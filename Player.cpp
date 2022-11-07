@@ -4,12 +4,13 @@
 
 #include "Player.h"
 
-Player::Player (Player const &other)
+Player::Player (const Player &other)
 {
     name=other.name;
     age=other.age;
     job=other.job;
 }
+
 
 
 int Player::get_score() { return score; }
@@ -21,14 +22,15 @@ std::ostream & operator << (std::ostream &out, const Player &p)
 }
 
 
-Player :: ~Player() {std::cout<<"Next player"; }
+Player :: ~Player() {std::cout<<"Next player aka Destructor Player called"; }
 
 
 
-Player Player::operator=(const Player &p) {
+Player& Player::operator=(const Player &p) {
     this->name = p.name;
     this->age = p.age;
     this->job = p.job;
-    return p;
+    return *this;
 }
+
 

@@ -6,26 +6,37 @@
 #define OOP_GAME_H
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include "Menu.h"
+#include "iostream"
+#include "Button.h"
 
 
 class Game {
     private:
         void initWindow();
-        sf::RenderWindow window;
+        sf::RenderWindow MENU;
         sf::Text text;
         sf::Font font;
         sf::Event event;
+        sf::Color colour;
+
+        Button button; //agregare
 
     public:
-        Game();
+        Game()=default;
+
+        void start_game();
 
         void updateSFMLEvents();
         void update();
         void render();
         void run();
 
-        ~Game();
+        ~Game()=default;
     };
+
+
+
 
 
 

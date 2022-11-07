@@ -19,7 +19,7 @@ private:
 public:
     Player()=default;
     Player (std::string name_, int age_, std::string job_ ) : name{name_}, age{age_}, job{job_}, score{0} {}
-    Player (Player const &other);
+    Player (const Player &other);
 
     int get_score();
     std::string get_name() {return name; }
@@ -28,7 +28,7 @@ public:
 
     friend std::ostream & operator << (std::ostream &out, const Player &p);
 
-    Player operator=(const Player &p);
+    Player& operator=(const Player &p);
 };
 
 
