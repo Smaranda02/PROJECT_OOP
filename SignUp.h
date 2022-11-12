@@ -19,7 +19,7 @@ private:
 
 public:
     SignUp();
-    void draw(sf::RenderWindow &window);
+    void draw();
 
     sf::RenderWindow* getWindow();
     ~SignUp()=default;

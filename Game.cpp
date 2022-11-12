@@ -11,7 +11,7 @@ void Game::initWindow() {
 
     //ce face asta this->windowMenu->create(sf::VideoMode({800, 700}), "MAIN windowMenu", sf::Style::Default);
 
-    this->windowMenu->setVerticalSyncEnabled(true);
+    //this->windowMenu->setVerticalSyncEnabled(true);
 
     this->windowMenu->setFramerateLimit(60);
 
@@ -72,6 +72,7 @@ void Game::updateSFMLEvents() {
                         SignUp signUp;
                         signUp.SFMLevents();
                         signUp.getWindow()->clear();
+                        signUp.getWindow()->draw();
                         signUp.getWindow()->display();
 
                 }

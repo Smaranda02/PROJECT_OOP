@@ -25,9 +25,9 @@ SignUp::SignUp() {
 }
 
 
-void SignUp::draw( sf::RenderWindow &window )
+void SignUp::draw()
 {
-    window.draw(text);
+    this->windowSignUp->draw(text);
 }
 
 
