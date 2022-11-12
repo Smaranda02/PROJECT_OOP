@@ -14,21 +14,17 @@ private:
     //Button Rules;
     sf::Text options[2];
     sf::Font font;
-
-    Rules RULES;
-
     int optionsNumber=2;
-    int optionsSelected;
+    int optionsSelected=0;
 
 public:
     Menu()=default;
-    Menu(float width, float height);
-
+    //Menu(float width, float height);
+    Menu(const sf::RenderWindow& window);
     void draw( sf::RenderWindow &window );
     void MoveUp();
     void MoveDown();
-    void RenderRules(sf::RenderWindow RULES_PAGE);
-    int MainMenuPressed();
+    int MainMenuPressed() const;
 
    ~Menu()=default;
 

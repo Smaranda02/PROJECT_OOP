@@ -6,24 +6,34 @@
 #include <iostream>
 #include "Rules.h"
 
-    Menu::Menu(float width, float height)
-    {
-if(!font.loadFromFile("arial.ttf"))
-    std::cout<<"EROARE LA INCARACREA FONTULUI";
 
-options[0].setFont(font);
-options[0].setFillColor(sf::Color::Yellow);
-options[0].setString("SignUp");
-options[0].setPosition(sf::Vector2f(width/2,height / (optionsNumber+1) ));
+Menu::Menu(const sf::RenderWindow &windowMenu) {
 
-options[1].setFont(font);
-options[1].setFillColor(sf::Color::Yellow);
-options[1].setString("Rules");
-options[1].setPosition(sf::Vector2f(width/2,height / (optionsNumber +1 )* 2));
+        float width=float(windowMenu.getSize().x);
+        float height=float(windowMenu.getSize().y);
 
-optionsSelected=0;
 
-}
+        //this->gameRules = new Rules();
+
+
+
+    if(!font.loadFromFile("arial.ttf"))
+            std::cout<<"EROARE LA INCARACREA FONTULUI";
+
+        options[0].setFont(font);
+        options[0].setFillColor(sf::Color::Black);
+        options[0].setString("SignUp");
+        options[0].setPosition(sf::Vector2f(width/2,height / float(optionsNumber+1) ));
+
+        options[1].setFont(font);
+        options[1].setFillColor(sf::Color::Black);
+        options[1].setString("Rules");
+        options[1].setPosition(sf::Vector2f(width/2,height / float(optionsNumber +1 )* 2));
+
+        optionsSelected=0;
+
+
+    }
 
 
 void Menu::draw( sf::RenderWindow &window )
@@ -66,18 +76,7 @@ void Menu::MoveUp() {
     //else optionsSelected=optionsNumber-1;
 }
 
-void Menu::RenderRules(sf::RenderWindow RULES_PAGE)
-{
-    RULES_PAGE.create(sf::VideoMode({800, 700}), "GAME_RULES", sf::Style::Default);
 
-    RULES_PAGE.setVerticalSyncEnabled(true);
-
-    RULES_PAGE.setFramerateLimit(60);
-
-
-}
-
-
-int Menu::MainMenuPressed() {
+int Menu::MainMenuPressed() const{
     return optionsSelected;
 }

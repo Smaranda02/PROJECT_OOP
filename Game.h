@@ -13,26 +13,26 @@
 
 class Game {
     private:
-        void initWindow();
-        sf::RenderWindow MENU;
+
+        sf::RenderWindow* windowMenu;
         sf::Text text;
         sf::Font font;
-        sf::Event event;
-        sf::Color colour;
-
+        sf::Event event{};
+        //sf::Color colour;
         Button button; //agregare
+        Menu* menu;  //agregare
+
+        ///std::stack<State *> states;
+
 
     public:
-        Game()=default;
-
+        Game();
         void start_game();
-
+        void initWindow();
         void updateSFMLEvents();
         void update();
         void render();
-        void run();
-
-        ~Game()=default;
+        virtual ~Game();
     };
 
 
