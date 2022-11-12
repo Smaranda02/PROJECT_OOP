@@ -36,8 +36,8 @@ sf::RenderWindow* SignUp::getWindow() { return this->windowSignUp; }
 void SignUp::SFMLevents() {
 
 
-    while (this->windowSignUp->isOpen()) {
-        sf::Event event{};
+     {
+
         while (this->windowSignUp->pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 this->windowSignUp->close();
@@ -48,5 +48,15 @@ void SignUp::SFMLevents() {
             }
         }
     }
+
+}
+
+void SignUp:: render() {
+
+
+    this->windowSignUp->clear();
+    //this->windowSignUp->draw(this->rules);
+    //this->draw();
+    this->windowSignUp->display();
 
 }

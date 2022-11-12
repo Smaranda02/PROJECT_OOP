@@ -14,11 +14,13 @@ private:
     sf::Font font;
     sf::RenderWindow* windowRules;
     sf::Text rules;
+    sf::Event event{};
 
 public:
     Rules();
     Rules(float width, float height);
     void draw();
+    void render();
     sf::RenderWindow* getWindow();
     ~Rules()=default;
     void SFMLevents();

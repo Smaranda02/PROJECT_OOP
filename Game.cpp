@@ -70,21 +70,25 @@ void Game::updateSFMLEvents() {
                 if(option==0)
                 {
                         SignUp signUp;
+                    while (signUp.getWindow()->isOpen()) {
                         signUp.SFMLevents();
-                        signUp.getWindow()->clear();
-                        signUp.getWindow()->draw();
-                        signUp.getWindow()->display();
+                        signUp.render();
+
+                    }
 
                 }
 
-                if(option==1)
-                {
-                        Rules gameRules;
-                        gameRules.SFMLevents();
-                        gameRules.getWindow()->clear();
-                        gameRules.draw();
-                        gameRules.getWindow()->display();
+                if(option==1) {
 
+
+                    Rules gameRules;
+                    while (gameRules.getWindow()->isOpen()) {
+                        gameRules.SFMLevents();
+                        gameRules.render();
+                        //gameRules.draw();
+
+
+                    }
                 }
 
                 if(option==2)

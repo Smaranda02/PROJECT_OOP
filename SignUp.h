@@ -16,12 +16,13 @@ private:
     sf::Font font;
     sf::Text text;
     sf::RenderWindow* windowSignUp;
+    sf::Event event;
 
 public:
     SignUp();
     void draw();
-
     sf::RenderWindow* getWindow();
+    void render();
     ~SignUp()=default;
     void SFMLevents();
 };
