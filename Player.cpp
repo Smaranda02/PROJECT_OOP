@@ -13,7 +13,7 @@ Player::Player (const Player &other)
 
 
 
-int Player::get_score() { return score; }
+int Player::get_score() const{ return score; }
 
 std::ostream & operator << (std::ostream &out, const Player &p)
 {
@@ -33,4 +33,4 @@ Player& Player::operator=(const Player &p) {
     return *this;
 }
 
-
+Player::Player()=default;

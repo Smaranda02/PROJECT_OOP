@@ -7,28 +7,34 @@
 #include "Rules.h"
 
 
-Menu::Menu(const sf::RenderWindow &windowMenu) {
+ Menu::Menu(const sf::RenderWindow &windowMenu) {
 
-        float width=float(windowMenu.getSize().x);
-        float height=float(windowMenu.getSize().y);
-
+     float width=float(windowMenu.getSize().x);
+     float height=float(windowMenu.getSize().y);
 
         //this->gameRules = new Rules();
-
-
 
     if(!font.loadFromFile("arial.ttf"))
             std::cout<<"EROARE LA INCARACREA FONTULUI";
 
+
         options[0].setFont(font);
-        options[0].setFillColor(sf::Color::Black);
+        options[0].setOutlineColor(sf::Color::Black);
+        options[0].setOutlineThickness(2.f);
+        options[0].setFillColor(sf::Color::White);
         options[0].setString("SignUp");
-        options[0].setPosition(sf::Vector2f(width/2,height / float(optionsNumber+1) ));
+        options[0].setPosition(sf::Vector2f(width/2,height / float(options.size()+1) ));
 
         options[1].setFont(font);
-        options[1].setFillColor(sf::Color::Black);
+        options[1].setOutlineColor(sf::Color::Black);
+        options[1].setOutlineThickness(2.f);
+        options[1].setFillColor(sf::Color::White);
         options[1].setString("Rules");
-        options[1].setPosition(sf::Vector2f(width/2,height / float(optionsNumber +1 )* 2));
+        options[1].setPosition(sf::Vector2f(width/2,height / float(options.size() +1 )* 2));
+
+        ///work in progress
+        /*for(int i=0;i<optionsSelected;i++)
+            setter(i,menuText[i]);*/
 
         optionsSelected=0;
 
@@ -36,44 +42,59 @@ Menu::Menu(const sf::RenderWindow &windowMenu) {
     }
 
 
+
+    ///to be continued
+void Menu::setter(int index, std::string& text) {
+
+    options[index].setFont(font);
+    options[index].setFillColor(sf::Color::Black);
+    options[index].setString(text);
+    //options[index].setPosition(sf::Vector2f(width/2,height / float(optionsNumber+1) ));
+
+}
+
+
+
+
+
 void Menu::draw( sf::RenderWindow &window )
 {
-    for (int i=0;i<optionsNumber;i++)
+    for (int i=0;i<int(options.size());i++)
         window.draw(options[i]);
 }
 
 
 
 void Menu::MoveDown() {
-    if(optionsSelected + 1 <= optionsNumber)
+    if(optionsSelected + 1 <= int(options.size()))
     {
-        options[optionsSelected].setFillColor(sf::Color::Black);
+        options[optionsSelected].setFillColor(sf::Color::White);
 
         optionsSelected++;
-        if(optionsSelected == optionsNumber+1) {
+        if(optionsSelected == int(options.size())) {
             optionsSelected=0;
         }
 
         options[optionsSelected].setFillColor(sf::Color::Blue);
     }
-    //else optionsSelected=0;
+
 
 }
 
 void Menu::MoveUp() {
-    if(optionsSelected - 1 >=0)
+    //if(optionsSelected - 1 >=0)
     {
-        options[optionsSelected].setFillColor(sf::Color::Black);
+        options[optionsSelected].setFillColor(sf::Color::White);
 
         optionsSelected--;
         if(optionsSelected == -1) {
-            optionsSelected=2;
+            optionsSelected=options.size()-1;
+            //optionsSelected = 1;
         }
 
         options[optionsSelected].setFillColor(sf::Color::Blue);
     }
 
-    //else optionsSelected=optionsNumber-1;
 }
 
 

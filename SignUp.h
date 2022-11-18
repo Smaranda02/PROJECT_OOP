@@ -7,20 +7,23 @@
 
 #include "SFML/Graphics.hpp"
 #include "iostream"
-
-
+#include "PlayerInput.h"
+#include "Player.h"
 
 class SignUp {
 
 private:
     sf::Font font;
-    sf::Text text;
     sf::RenderWindow* windowSignUp;
-    sf::Event event;
+    sf::Event event{};
+    PlayerInput* nume;
+    PlayerInput* prenume;
+    Player player;
+
 
 public:
     SignUp();
-    void draw();
+    //void draw();
     sf::RenderWindow* getWindow();
     void render();
     ~SignUp()=default;

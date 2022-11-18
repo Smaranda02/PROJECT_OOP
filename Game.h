@@ -29,7 +29,9 @@ class Game {
         Game();
         void start_game();
         void initWindow();
-        void updateSFMLEvents();
+
+    Game& operator=(const Game &rhs);
+    void updateSFMLEvents();
         void update();
         void render();
         virtual ~Game();

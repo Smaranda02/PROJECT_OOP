@@ -8,28 +8,23 @@
 #include <SFML/Graphics.hpp>
 
 
-enum button_states{BTN_IDLE=0, BTN_HOVER, BTN_PRESSED};
 
 class Button {
 private:
-    sf::Color idleColor;
-    sf::Color hoverColor;
+    sf::Color idleColor = sf::Color::Black;
+    sf::Color hoverColor = sf::Color::Blue ;
     sf::Text text;
-    sf::Font font;
-    sf::RectangleShape button;
-    bool pressed;
-    bool hover;
+    sf::Font* font;
+    sf::RectangleShape shape;
+    enum button_states{BTN_IDLE=0, BTN_HOVER, BTN_PRESSED};
     short unsigned buttonState;
 
 public:
-    Button()=default;
+    Button();
     Button(float x,float y, float width, float height, sf::Font* font, std::string text,
-           sf::Color idleColor, sf::Color hoverCOlor, sf::Color activeColor); /*{
-        this->idleColor=idleColor;
-    }
-    */
+           sf::Color idleColor, sf::Color hoverColor);
 
-    ~Button()=default;
+    ~Button();
 
     void update(const sf::Vector2f mousePos);
 };

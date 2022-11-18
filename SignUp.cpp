@@ -13,28 +13,28 @@ SignUp::SignUp() {
     float width = float(windowSignUp->getSize().x);
     float height = float(windowSignUp->getSize().y);
 
+    nume = new PlayerInput(15, sf::Color::White, true);
+    prenume = new PlayerInput(15, sf::Color::White, true);
+
 
     if (!font.loadFromFile("arial.ttf"))
         std::cout << "EROARE LA INCARACREA FONTULUI";
 
-    text.setFont(font);
-    text.setFillColor(sf::Color::Red);
-    text.setString("SignUp");
-    text.setPosition(sf::Vector2f(width / 2, height / 2));
+    nume->setFont(font);
+    prenume ->setFont(font);
+    //input->setFillColor(sf::Color::Red);
+    //text.setString("SignUp");
+    nume->setPosition(sf::Vector2f(width/3, height / 3));
+    prenume->setPosition(sf::Vector2f(width*2/3, height * 2 / 3));
+
 
 }
 
 
-void SignUp::draw()
-{
-    this->windowSignUp->draw(text);
-}
-
-
-sf::RenderWindow* SignUp::getWindow() { return this->windowSignUp; }
+sf::RenderWindow* SignUp::getWindow()
+{ return this->windowSignUp; }
 
 void SignUp::SFMLevents() {
-
 
      {
 
@@ -46,6 +46,8 @@ void SignUp::SFMLevents() {
                 if (event.key.code == sf::Keyboard::Escape)
                     this->windowSignUp->close();
             }
+            if(event.type == sf::Event::TextEntered)
+                nume->typedOn(event);
         }
     }
 
@@ -57,6 +59,8 @@ void SignUp:: render() {
     this->windowSignUp->clear();
     //this->windowSignUp->draw(this->rules);
     //this->draw();
+    nume->drawTo(*windowSignUp);
+    prenume->drawTo(*windowSignUp);
     this->windowSignUp->display();
 
 }

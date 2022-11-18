@@ -17,11 +17,11 @@ private:
     int score;
 
 public:
-    Player()=default;
-    Player (std::string name_, int age_, std::string job_ ) : name{name_}, age{age_}, job{job_}, score{0} {}
+    Player();
+    Player (std::string& name_, int age_, std::string& job_ ) : name{name_}, age{age_}, job{job_}, score{0} {}
     Player (const Player &other);
 
-    int get_score();
+    [[nodiscard]] int get_score() const;
     std::string get_name() {return name; }
 
     ~Player();

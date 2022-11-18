@@ -76,7 +76,7 @@ sfml_set_custom_stdlib(sfml-graphics)
 ###############################################################################
 
 # NOTE: update executable name in .github/workflows/cmake.yml when changing name here
-add_executable(${PROJECT_NAME} main.cpp Button.cpp Button.h Menu.cpp Menu.h Game.cpp Game.h Player.cpp Player.h Rules.cpp Rules.h States.cpp States.h SignUp.cpp SignUp.h)
+add_executable(${PROJECT_NAME} main.cpp Button.cpp Button.h Menu.cpp Menu.h Game.cpp Game.h Player.cpp Player.h Rules.cpp Rules.h States.cpp States.h SignUp.cpp SignUp.h PlayerInput.cpp PlayerInput.h)
 
 ###############################################################################
 
@@ -154,4 +154,4 @@ target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-system)
 # copy binaries to bin folder; these are uploaded as artifacts on each release
 install(TARGETS ${PROJECT_NAME} DESTINATION bin)
 # install(DIRECTORY some_dir1 some_dir2 DESTINATION bin)
-# install(FILES some_file1.txt some_file2.md DESTINATION bin)
+install(FILES arial.ttf Jocul-Cuvintelor-Meniu.jpg DESTINATION bin)

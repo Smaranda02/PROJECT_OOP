@@ -117,7 +117,7 @@ void Game::render() {
 
 
     sf::RectangleShape background;
-    background.setSize(sf::Vector2f(960,720));
+    background.setSize(sf::Vector2f(800,600));
     sf::Texture MenuTexture;
     MenuTexture.loadFromFile("Jocul-Cuvintelor-Meniu.jpg");
     background.setTexture(&MenuTexture);
@@ -159,5 +159,15 @@ void Game::start_game() {
 
     }
 
+}
+
+Game& Game::operator=(const Game &other){
+           this->windowMenu = other.windowMenu;
+           this->text = other.text;
+           this->font = other.font;
+           this->event = other.event;
+           this->button = other.button;
+           this->menu = other.menu;
+           return *this;
 }
 

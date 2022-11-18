@@ -73,3 +73,11 @@ void Rules::render() {
     this->windowRules->display();
 
 }
+
+Rules& Rules::operator=(const Rules &other ) {
+    this-> font=other.font;
+    this-> windowRules=other.windowRules;
+    this->rules=other.rules;
+    this->event=other.event;
+    return *this;
+}

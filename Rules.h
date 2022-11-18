@@ -18,7 +18,8 @@ private:
 
 public:
     Rules();
-    Rules(float width, float height);
+    Rules& operator=(const Rules& other);
+    //Rules(float width, float height);
     void draw();
     void render();
     sf::RenderWindow* getWindow();

@@ -7,20 +7,25 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include "Rules.h"
+#include <string>
+#include <vector>
+#include <array>
 
 class Menu {
 private:
     //Button SignUp;
     //Button Rules;
-    sf::Text options[2];
+    std::array <sf::Text,2> options;
+    //std::vector<std::string> menuText = {"SignUp", "Rules"};
     sf::Font font;
-    int optionsNumber=2;
+    //int optionsNumber=2;
     int optionsSelected=0;
 
 public:
     Menu()=default;
     //Menu(float width, float height);
-    Menu(const sf::RenderWindow& window);
+    explicit Menu(const sf::RenderWindow& window);
+    void setter(int index, std::string& text);
     void draw( sf::RenderWindow &window );
     void MoveUp();
     void MoveDown();
