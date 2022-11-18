@@ -41,6 +41,6 @@ Button::Button(float x, float y, float width, float height, sf::Font *font, std:
             this->shape.getPosition().y + this->shape.getGlobalBounds().height / 2.f -
             this->text.getGlobalBounds().height / 2.f
     );
-};
+}
 
 Button::~Button() {}
