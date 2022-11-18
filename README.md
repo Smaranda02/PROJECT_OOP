@@ -56,3 +56,11 @@
 
 # Jocul cuvintelor
 Acest proiect este o emulare a emisiunii "Jocul cuvintelor", cu Dan Negru. Fiecare participant care se inscrie are un timp maxim de 2 minute in care sa ghiceasca cat mai multe cuvinte, in urma unei definitii specifice furnizate pnetru acel cuvant. Astfel, jucatorul va acumula cat mai multe puncte cu cat va asocia cat mai multe descrieri cu termenii care trebuie aflati. Cine acumuleaza cele mai multe puncte la finalul concursului castiga!
+
+Surse externe :\
+\
+ Imagini : 
+ - Jocul-Cuvintelor-Meniu.jpeg sursa "https://romaseriale.net/wp-content/uploads/2022/07/Jocul-Cuvintelor-din-0.jpg"
+
+Font :
+ - arial.ttf sursa "https://dafontonline.com/arial-font-free-download/"
