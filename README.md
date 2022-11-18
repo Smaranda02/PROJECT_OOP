@@ -52,3 +52,7 @@
 
 - [SFML](https://github.com/SFML/SFML/tree/aa82ea132b9296a31922772027ad5d14c1fa381b) (Zlib)
 - adăugați trimiteri către resursele externe care v-au ajutat sau pe care le-ați folosit
+
+
+# Jocul cuvintelor
+Acest proiect este o emulare a emisiunii "Jocul cuvintelor", cu Dan Negru. Fiecare participant care se inscrie are un timp maxim de 2 minute in care sa ghiceasca cat mai multe cuvinte, in urma unei definitii specifice furnizate pnetru acel cuvant. Astfel, jucatorul va acumula cat mai multe puncte cu cat va asocia cat mai multe descrieri cu termenii care trebuie aflati. Cine acumuleaza cele mai multe puncte la finalul concursului castiga!
