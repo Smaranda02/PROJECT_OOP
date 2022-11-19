@@ -81,3 +81,11 @@ Rules& Rules::operator=(const Rules &other ) {
     this->event=other.event;
     return *this;
 }
+
+Rules::Rules(const Rules &other) {
+    this-> font=other.font;
+    this-> windowRules=other.windowRules;
+    this->rules=other.rules;
+    this->event=other.event;
+}
+

@@ -31,6 +31,7 @@ class Game {
         void initWindow();
 
     Game& operator=(const Game &other);
+    Game(const Game& other);
     void updateSFMLEvents();
         void update();
         void render();

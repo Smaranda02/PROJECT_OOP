@@ -25,7 +25,7 @@ public:
     Menu()=default;
     //Menu(float width, float height);
     explicit Menu(const sf::RenderWindow& window);
-    void setter(int index, std::string& text);
+    //void setter(int index, std::string& text);
     void draw( sf::RenderWindow &window );
     void MoveUp();
     void MoveDown();

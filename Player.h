@@ -12,16 +12,16 @@
 class Player {
 private:
     std::string name;
-    int age;
+    std::string surname;
     std::string job;
     int score;
 
 public:
     Player();
-    Player (std::string& name_, int age_, std::string& job_ ) : name{name_}, age{age_}, job{job_}, score{0} {}
+    Player (std::string& name_, std::string surname_, std::string& job_ ) : name{name_}, surname{surname_}, job{job_}, score{0} {}
     Player (const Player &other);
 
-    [[nodiscard]] int get_score() const;
+    //[[nodiscard]] int get_score() const;
     std::string get_name() {return name; }
 
     ~Player();

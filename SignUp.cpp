@@ -96,3 +96,19 @@ SignUp::~SignUp(){
     delete this->prenume;
     delete this->playButton;
 }
+
+
+SignUp::SignUp(const SignUp &other) {
+    font=other.font;
+    mousePosition=other.mousePosition;
+    windowSignUp=other.windowSignUp;
+    event=other.event;
+    nume=other.nume;
+    prenume=other.prenume;
+    player=other.player;
+    playButton=other.playButton;
+
+
+}
+
+

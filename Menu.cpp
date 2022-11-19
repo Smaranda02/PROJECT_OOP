@@ -44,6 +44,7 @@
 
 
     ///to be continued
+    /*
 void Menu::setter(int index, std::string& text) {
 
     options[index].setFont(font);
@@ -52,6 +53,7 @@ void Menu::setter(int index, std::string& text) {
     //options[index].setPosition(sf::Vector2f(width/2,height / float(optionsNumber+1) ));
 
 }
+     */
 
 
 

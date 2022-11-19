@@ -173,3 +173,11 @@ Game& Game::operator=(const Game &other){
 
 Game& Game::operator=(const Game &other)= default;
 
+Game::Game(const Game &other) {
+    windowMenu = other.windowMenu;
+    text = other.text;
+    font = other.font;
+    event = other.event;
+    button = other.button;
+    menu = other.menu;
+}

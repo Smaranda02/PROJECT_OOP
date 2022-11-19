@@ -30,11 +30,16 @@ void PlayerInput::setFont(sf::Font &font) {
     textbox.setFont(font);
 }
 
+///to be continued
+/*
 void PlayerInput::setLimit(bool ToF, int lim) {
     hasLimit =ToF;
     limit = lim;
 }
+ */
 
+
+/*
 void PlayerInput::setSelected(bool sel) {
      isSelected = sel;
      if(!sel) {
@@ -45,6 +50,7 @@ void PlayerInput::setSelected(bool sel) {
          textbox.setString(newT);
      }
 }
+ */
 
 std::string PlayerInput::getText() {
     return text.str();
