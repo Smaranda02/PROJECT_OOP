@@ -13,9 +13,9 @@ SignUp::SignUp() {
     float width = float(windowSignUp->getSize().x);
     float height = float(windowSignUp->getSize().y);
 
-    nume = new PlayerInput(15, sf::Color::White, true);
-    prenume = new PlayerInput(15, sf::Color::White, true);
-
+    this->nume = new PlayerInput(15, sf::Color::White, true);
+    this->prenume = new PlayerInput(15, sf::Color::White, true);
+    this->playButton = new Button(600,400,150,50, &this->font, "Start Game");
 
     if (!font.loadFromFile("arial.ttf"))
         std::cout << "EROARE LA INCARACREA FONTULUI";
@@ -34,20 +34,42 @@ SignUp::SignUp() {
 sf::RenderWindow* SignUp::getWindow()
 { return this->windowSignUp; }
 
+
+
+void SignUp::updateMousePosition() {
+    this->mousePosition = sf::Mouse::getPosition(*this->getWindow());
+}
+
+
+/*
+sf::Vector2f SignUp::getWindowSize() const {
+    return sf::Vector2f(this->windowSignUp->getSize());
+}
+*/
+
+
 void SignUp::SFMLevents() {
 
      {
 
         while (this->windowSignUp->pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
+
+            this->updateMousePosition();
+            this->playButton->update(static_cast<sf::Vector2f>(this->mousePosition));
+
+             if (event.type == sf::Event::Closed) {
                 this->windowSignUp->close();
             }
             if (event.type == sf::Event::KeyPressed) {
                 if (event.key.code == sf::Keyboard::Escape)
                     this->windowSignUp->close();
             }
+
+            ///if(event.type = mouseclicked
             if(event.type == sf::Event::TextEntered)
                 nume->typedOn(event);
+
+
         }
     }
 
@@ -59,8 +81,18 @@ void SignUp:: render() {
     this->windowSignUp->clear();
     //this->windowSignUp->draw(this->rules);
     //this->draw();
-    nume->drawTo(*windowSignUp);
-    prenume->drawTo(*windowSignUp);
+    this->nume->drawTo(*windowSignUp);
+    this->prenume->drawTo(*windowSignUp);
+
+    sf::RenderTarget* target = this->windowSignUp;
+    this->playButton->render(target);
+
     this->windowSignUp->display();
 
+}
+
+SignUp::~SignUp(){
+    delete this->nume;
+    delete this->prenume;
+    delete this->playButton;
 }

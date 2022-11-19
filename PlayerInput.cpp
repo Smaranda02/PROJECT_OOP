@@ -39,7 +39,7 @@ void PlayerInput::setSelected(bool sel) {
      isSelected = sel;
      if(!sel) {
          std::string t =text.str();
-         std::string newT = "";
+         std::string newT ;
          for(int i=0; i < int(t.length())-1; i++)
              newT += t[i];
          textbox.setString(newT);
@@ -53,14 +53,14 @@ std::string PlayerInput::getText() {
 void PlayerInput::typedOn(sf::Event input)
 {
     if(isSelected) {
-        int charTyped = input.text.unicode;
+        auto charTyped = input.text.unicode;
         if(charTyped < 128) {
             if(hasLimit) {
                  if(int(text.str().length()) <= limit  )
                      inputLogic((charTyped));
 
-            else if(int(text.str().length()) > limit && charTyped == DELETE_KEY)
-                deleteLastChar();
+                 else if(int(text.str().length()) > limit && charTyped == DELETE_KEY)
+                    deleteLastChar();
 
                         }
 
@@ -75,3 +75,7 @@ void PlayerInput::typedOn(sf::Event input)
 void PlayerInput::drawTo(sf::RenderWindow &window){
     window.draw(textbox);
 }
+
+PlayerInput::~PlayerInput() { std::cout<<"Destructor for PlayerInput called"; }
+
+PlayerInput::PlayerInput() {std::cout<<"Constructor called for PlayerInput";}

@@ -55,8 +55,6 @@ void Menu::setter(int index, std::string& text) {
 
 
 
-
-
 void Menu::draw( sf::RenderWindow &window )
 {
     for (int i=0;i<int(options.size());i++)

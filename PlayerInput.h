@@ -23,9 +23,9 @@ private:
     std::ostringstream text;
     bool isSelected = false;
     bool hasLimit = false;
-    int limit;
+    int limit = 0;
 
-    void inputLogic(int charTyped) {
+    void inputLogic(auto charTyped) {
 
         if(charTyped != DELETE_KEY && charTyped != ENTER_KEY && charTyped != ESCAPE_KEY)
             text<< static_cast<char>(charTyped);
@@ -41,7 +41,7 @@ private:
 
     void deleteLastChar(){
         std::string t =text.str();
-        std::string newT = "";
+        std::string newT ;
         for(int i=0; i < int(t.length())-1; i++)
             newT += t[i];
 

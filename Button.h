@@ -11,21 +11,20 @@
 
 class Button {
 private:
-    sf::Color idleColor = sf::Color::Black;
-    sf::Color hoverColor = sf::Color::Blue ;
+    sf::Color idleColor = sf::Color::Red ;
+    sf::Color hoverColor = sf::Color::Blue;
     sf::Text text;
     sf::Font* font;
     sf::RectangleShape shape;
     enum button_states{BTN_IDLE=0, BTN_HOVER, BTN_PRESSED};
-    short unsigned buttonState;
+    //short unsigned buttonState;
 
 public:
     Button();
-    Button(float x,float y, float width, float height, sf::Font* font, std::string text,
-           sf::Color idleColor, sf::Color hoverColor);
-
+    Button(float x,float y, float width, float height, sf::Font* font, const std::string& text);
+    //bool isPressed() const;
     ~Button();
-
+    void render(sf::RenderTarget *target);
     void update(const sf::Vector2f mousePos);
 };
 

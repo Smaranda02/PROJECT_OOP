@@ -70,24 +70,21 @@ void Game::updateSFMLEvents() {
                 if(option==0)
                 {
                         SignUp signUp;
-                    while (signUp.getWindow()->isOpen()) {
+                        while (signUp.getWindow()->isOpen())
+                        {
                         signUp.SFMLevents();
                         signUp.render();
-
-                    }
+                         }
 
                 }
 
                 if(option==1) {
-
 
                     Rules gameRules;
                     while (gameRules.getWindow()->isOpen()) {
                         gameRules.SFMLevents();
                         gameRules.render();
                         //gameRules.draw();
-
-
                     }
                 }
 
@@ -161,13 +158,18 @@ void Game::start_game() {
 
 }
 
+
+/*
 Game& Game::operator=(const Game &other){
-           this->windowMenu = other.windowMenu;
-           this->text = other.text;
-           this->font = other.font;
-           this->event = other.event;
-           this->button = other.button;
-           this->menu = other.menu;
+           windowMenu = other.windowMenu;
+           text = other.text;
+           font = other.font;
+           event = other.event;
+           button = other.button;
+           menu = other.menu;
            return *this;
 }
+ */
+
+Game& Game::operator=(const Game &other)= default;
 
