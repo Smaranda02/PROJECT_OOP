@@ -5,12 +5,7 @@
 #include "Player.h"
 
 /*
-[[maybe_unused]] Player::Player (const Player &other)
-{
-    name=other.name;
-    surname=other.surname;
-    job=other.job;
-    score=other.score;
+[[maybe_unused]] Player::Player (const Player &other) : name{other.name}, surname{other.surname}, score{other.score} {
 }
 */
 

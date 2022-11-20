@@ -20,7 +20,7 @@ private:
 public:
     Player();
     //Player (std::string& name_, std::string surname_, std::string& job_ ) : name{name_}, surname{std::move(surname_)}, job{job_}, score{0} {}
-    //[[maybe_unused]] Player (const Player &other) : , , , = default;
+    [[maybe_unused]] Player (const Player &other)=default;
     //[[nodiscard]] int get_score() const;
     std::string get_name() {return name; }
     //std::string get_job() {return job;}
