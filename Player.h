@@ -15,7 +15,7 @@ private:
     std::string name;
     std::string surname;
     //std::string job;
-    int score{};
+    //int score{};
 
 public:
     Player();
