@@ -22,9 +22,12 @@ void PlayerInput::setPosition(sf::Vector2f pos) {
     textbox.setPosition(pos);
 }
 
+/*
 void PlayerInput::setLimit(bool ToF) {
     hasLimit= ToF;
 }
+*/
+
 
 void PlayerInput::setFont(sf::Font &font) {
     textbox.setFont(font);
@@ -52,9 +55,11 @@ void PlayerInput::setSelected(bool sel) {
 }
  */
 
+/*
 std::string PlayerInput::getText() {
     return text.str();
 }
+*/
 
 void PlayerInput::typedOn(sf::Event input)
 {

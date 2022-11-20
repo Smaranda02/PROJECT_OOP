@@ -57,10 +57,10 @@ public:
     PlayerInput(int size, sf::Color color, bool sel);
     void setFont(sf::Font &font);
     void setPosition(sf::Vector2f pos);
-    void setLimit(bool ToF);
+    //void setLimit(bool ToF);
     //void setLimit(bool ToF, int lim);
     //void setSelected(bool sel);
-    std::string getText();
+    //std::string getText();
     void drawTo(sf::RenderWindow &window);
     void typedOn(sf::Event input);
 
