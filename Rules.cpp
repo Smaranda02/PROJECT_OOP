@@ -74,7 +74,11 @@ void Rules::render() {
 
 }
 
+
 Rules& Rules::operator=(const Rules &other ) {
+    if(this==&other)
+        return *this;
+
     this-> font=other.font;
     this-> windowRules=other.windowRules;
     this->rules=other.rules;
@@ -82,9 +86,10 @@ Rules& Rules::operator=(const Rules &other ) {
     return *this;
 }
 
-Rules::Rules(const Rules &other) {
+
+[[maybe_unused]] Rules::Rules(const Rules &other) {
     this-> font=other.font;
-    this-> windowRules=other.windowRules;
+    this-> windowRules=new sf::RenderWindow;
     this->rules=other.rules;
     this->event=other.event;
 }

@@ -26,16 +26,19 @@ private:
 
 public:
     SignUp();
-    SignUp(const SignUp& other);
+
+    //[[maybe_unused]] SignUp(const SignUp& other);
     //void draw();
     void updateMousePosition();
     //sf::Vector2f getWindowSize() const;
     sf::RenderWindow* getWindow();
-    SignUp& operator=(const SignUp& other)=default;
+    SignUp& operator=(const SignUp& other);
     void render();
+    SignUp(const SignUp& other);
     ~SignUp();
     void SFMLevents();
 };
+
 
 
 #endif //OOP_SIGNUP_H

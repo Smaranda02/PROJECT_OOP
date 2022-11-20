@@ -22,16 +22,13 @@ class Game {
         Button button; //agregare
         Menu* menu;  //agregare
 
-        ///std::stack<State *> states;
-
-
     public:
         Game();
         void start_game();
         void initWindow();
 
     Game& operator=(const Game &other);
-    Game(const Game& other);
+    [[maybe_unused]] Game(const Game& other);
     void updateSFMLEvents();
         void update();
         void render();

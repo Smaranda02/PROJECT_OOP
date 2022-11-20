@@ -16,7 +16,7 @@ private:
     sf::Text text;
     sf::Font* font;
     sf::RectangleShape shape;
-    enum button_states{BTN_IDLE=0, BTN_HOVER, BTN_PRESSED};
+    //enum button_states{BTN_IDLE=0, BTN_HOVER, BTN_PRESSED};
     //short unsigned buttonState;
 
 public:
@@ -25,7 +25,7 @@ public:
     //bool isPressed() const;
     ~Button();
     void render(sf::RenderTarget *target);
-    void update(const sf::Vector2f mousePos);
+    void update( sf::Vector2f mousePos);
 };
 
 

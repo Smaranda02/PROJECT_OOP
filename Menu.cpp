@@ -59,8 +59,8 @@ void Menu::setter(int index, std::string& text) {
 
 void Menu::draw( sf::RenderWindow &window )
 {
-    for (int i=0;i<int(options.size());i++)
-        window.draw(options[i]);
+    for (const auto & option : options)
+        window.draw(option);
 }
 
 
@@ -88,7 +88,7 @@ void Menu::MoveUp() {
 
         optionsSelected--;
         if(optionsSelected == -1) {
-            optionsSelected=options.size()-1;
+            optionsSelected=static_cast<int>(options.size()-1);
             //optionsSelected = 1;
         }
 

@@ -104,11 +104,16 @@ void Game::updateSFMLEvents() {
 
 Game::Game() {
 
+    this->windowMenu= nullptr;
     this->initWindow();
     this->menu = new Menu(*(this->windowMenu));
 }
 
+[[maybe_unused]] Game::Game(const Game &other) : text{other.text}, font{other.font}, event{other.event}, button{other.button} {
 
+    windowMenu=new sf::RenderWindow;
+    menu=new Menu;
+}
 
 void Game::render() {
 
@@ -159,20 +164,22 @@ void Game::start_game() {
 }
 
 
-/*
+
 Game& Game::operator=(const Game &other){
-           windowMenu = other.windowMenu;
+    if(this==&other)
+        return *this;
+
+           windowMenu = new sf::RenderWindow;
            text = other.text;
            font = other.font;
            event = other.event;
            button = other.button;
-           menu = other.menu;
+           menu = new Menu;
            return *this;
 }
- */
 
-Game& Game::operator=(const Game &other)= default;
 
+/*
 Game::Game(const Game &other) {
     windowMenu = other.windowMenu;
     text = other.text;
@@ -181,3 +188,4 @@ Game::Game(const Game &other) {
     button = other.button;
     menu = other.menu;
 }
+*/

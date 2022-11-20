@@ -19,7 +19,8 @@ private:
 public:
     Rules();
     Rules& operator=(const Rules& other);
-    Rules(const Rules& other);
+
+    [[maybe_unused]] Rules(const Rules& other);
     //Rules(float width, float height);
     void draw();
     void render();

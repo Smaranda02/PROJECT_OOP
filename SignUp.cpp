@@ -17,8 +17,7 @@ SignUp::SignUp() {
     this->prenume = new PlayerInput(15, sf::Color::White, true);
     this->playButton = new Button(600,400,150,50, &this->font, "Start Game");
 
-    if (!font.loadFromFile("arial.ttf"))
-        std::cout << "EROARE LA INCARACREA FONTULUI";
+    if (!font.loadFromFile("arial.ttf")) { std::cout << "EROARE LA INCARACREA FONTULUI"; }
 
     nume->setFont(font);
     prenume ->setFont(font);
@@ -46,6 +45,7 @@ sf::Vector2f SignUp::getWindowSize() const {
     return sf::Vector2f(this->windowSignUp->getSize());
 }
 */
+
 
 
 void SignUp::SFMLevents() {
@@ -98,7 +98,24 @@ SignUp::~SignUp(){
 }
 
 
-SignUp::SignUp(const SignUp &other) {
+
+[[maybe_unused]] SignUp::SignUp(const SignUp &other): font{other.font},mousePosition{other.mousePosition},
+                                                      event{other.event}, player{other.player}
+                                                      {
+    windowSignUp=new sf::RenderWindow;
+    nume = new PlayerInput;
+    prenume=new PlayerInput;
+    playButton=new Button;
+
+
+}
+
+
+SignUp& SignUp::operator=(const SignUp &other) {
+
+    if(this==&other)
+        return *this;
+
     font=other.font;
     mousePosition=other.mousePosition;
     windowSignUp=other.windowSignUp;
@@ -107,8 +124,7 @@ SignUp::SignUp(const SignUp &other) {
     prenume=other.prenume;
     player=other.player;
     playButton=other.playButton;
-
+    return *this;
 
 }
-
 
