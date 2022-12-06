@@ -64,3 +64,7 @@ Surse externe :\
 
 Font :
  - arial.ttf sursa "https://dafontonline.com/arial-font-free-download/"
+
+Documentatie :
+ - SFML Playlist : https://www.youtube.com/watch?v=yEiZalvDOj4&list=PL6xSOsbVA1eaJnHo_O6uB4qU8LZWzzKdo
+ - https://www.sfml-dev.org/tutorials/2.5/
