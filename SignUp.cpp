@@ -3,7 +3,13 @@
 //
 
 #include "SignUp.h"
+#include "Exceptions.h"
+#include "SubmitButton.h"
+#include "Player.h"
+#include "StartGameButton.h"
 
+ PlayerInput& SignUp::get_name() {return *(this->prenume); }
+ PlayerInput& SignUp::get_surname() {return *(this->nume); }
 
 
 SignUp::SignUp() {
@@ -13,19 +19,35 @@ SignUp::SignUp() {
     float width = float(windowSignUp->getSize().x);
     float height = float(windowSignUp->getSize().y);
 
-    this->nume = new PlayerInput(15, sf::Color::White, true);
-    this->prenume = new PlayerInput(15, sf::Color::White, true);
-    this->playButton = new Button(600,400,150,50, &this->font, "Start Game");
+    this->nume = new PlayerInput(15, sf::Color::White, false);
+    this->prenume = new PlayerInput(15, sf::Color::White, false);
 
-    if (!font.loadFromFile("arial.ttf")) { std::cout << "EROARE LA INCARACREA FONTULUI"; }
+    this->playButton =   StartGameButton(600,400,150,50, &this->font, "Start Game");
+    this->submitButton = SubmitButton(600,300,150,50, &this->font, "Submit");
 
-    nume->setFont(font);
-    prenume ->setFont(font);
-    //input->setFillColor(sf::Color::Red);
-    //text.setString("SignUp");
-    nume->setPosition(sf::Vector2f(width/3, height / 3));
-    prenume->setPosition(sf::Vector2f(width*2/3, height * 2 / 3));
+    this->boxName.setPosition(sf::Vector2f(100,200));
+    this->boxName.setSize(sf::Vector2f(static_cast<float>(width/2.5), static_cast<float>(height/18)));
+    this->boxName.setFillColor(sf::Color::Transparent);
+    this->boxName.setOutlineColor(sf::Color::White);
+    this->boxName.setOutlineThickness(1);
 
+    this->boxSurname.setPosition(sf::Vector2f(100,300));
+    this->boxSurname.setSize(sf::Vector2f(static_cast<float>(width/2.5), static_cast<float>(height/18)));
+    this->boxSurname.setFillColor(sf::Color::Transparent);
+    this->boxSurname.setOutlineColor(sf::Color::White);
+    this->boxSurname.setOutlineThickness(1);
+
+    if (!font.loadFromFile("arial.ttf")) { std::cout << "EROARE LA INCARACREA FONTULUI";
+                                           throw eroare_font();
+                                         }
+
+
+    this->nume->setFont(font);
+    this->nume->setPosition(sf::Vector2f(100, 200));
+    this->prenume->setFont(font);
+    this->prenume->setPosition(sf::Vector2f(100, 300));
+
+    this->player = Player();
 
 }
 
@@ -40,22 +62,15 @@ void SignUp::updateMousePosition() {
 }
 
 
-/*
-sf::Vector2f SignUp::getWindowSize() const {
-    return sf::Vector2f(this->windowSignUp->getSize());
-}
-*/
-
-
 
 void SignUp::SFMLevents() {
-
-     {
 
         while (this->windowSignUp->pollEvent(event)) {
 
             this->updateMousePosition();
-            this->playButton->update(static_cast<sf::Vector2f>(this->mousePosition));
+            this->playButton.update(static_cast<sf::Vector2f>(this->mousePosition));
+            this->submitButton.update(static_cast<sf::Vector2f>(this->mousePosition));
+
 
              if (event.type == sf::Event::Closed) {
                 this->windowSignUp->close();
@@ -65,28 +80,53 @@ void SignUp::SFMLevents() {
                     this->windowSignUp->close();
             }
 
-            ///if(event.type = mouseclicked
-            if(event.type == sf::Event::TextEntered)
-                nume->typedOn(event);
 
+            if(this->boxName.getGlobalBounds().contains(static_cast<sf::Vector2f>(this->mousePosition)))
+            {
+                if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                    std::cout<<"OK";
+                    this->nume->setSelected(true);
+                    }
+                if(event.type == sf::Event::TextEntered)
+                    nume->typedOn(event);
+
+                this->prenume->setSelected(false);
+            }
+
+
+            if(this->boxSurname.getGlobalBounds().contains(static_cast<sf::Vector2f>(this->mousePosition)))
+            {
+                if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                    std::cout<<"OK";
+                    this->prenume->setSelected(true);
+                }
+
+                if(event.type == sf::Event::TextEntered)
+                    prenume->typedOn(event);
+
+                this->nume->setSelected(false);
+
+            }
+
+            checkButtonState();
 
         }
+
     }
 
-}
+
 
 void SignUp:: render() {
 
 
     this->windowSignUp->clear();
-    //this->windowSignUp->draw(this->rules);
-    //this->draw();
     this->nume->drawTo(*windowSignUp);
     this->prenume->drawTo(*windowSignUp);
 
     sf::RenderTarget* target = this->windowSignUp;
-    this->playButton->render(target);
-
+    draw(target);
+    this->playButton.render(target);
+    this->submitButton.render(target);
     this->windowSignUp->display();
 
 }
@@ -94,18 +134,18 @@ void SignUp:: render() {
 SignUp::~SignUp(){
     delete this->nume;
     delete this->prenume;
-    delete this->playButton;
 }
 
 
 
 [[maybe_unused]] SignUp::SignUp(const SignUp &other): font{other.font},mousePosition{other.mousePosition},
-                                                      event{other.event}, player{other.player}
+                                                      event{other.event}, player{other.player},  playButton{other.playButton},
+                                                      submitButton{other.submitButton}
                                                       {
     windowSignUp=new sf::RenderWindow;
     nume = new PlayerInput;
     prenume=new PlayerInput;
-    playButton=new Button;
+
 
 
 }
@@ -117,6 +157,7 @@ SignUp& SignUp::operator=(const SignUp &other) {
         return *this;
 
     font=other.font;
+    submitButton=other.submitButton;
     mousePosition=other.mousePosition;
     windowSignUp=other.windowSignUp;
     event=other.event;
@@ -128,3 +169,20 @@ SignUp& SignUp::operator=(const SignUp &other) {
 
 }
 
+
+void SignUp::draw(sf::RenderTarget *target) {
+    target->draw(this->boxName);
+    target->draw(this->boxSurname);
+}
+
+
+void SignUp::checkButtonState() {
+
+    if(submitButton.get_buttonState() && !pressedOnce) {
+        Player tmp(this->prenume->get_text(), this->nume->get_text());
+        this->player=tmp;
+        pressedOnce=true;
+        std::cout<<player.get_name()<<" "<<player.get_surname();
+    }
+
+}

@@ -14,16 +14,16 @@ class Player {
 private:
     std::string name;
     std::string surname;
-    //std::string job;
-    //int score{};
+
 
 public:
-    Player();
-    //Player (std::string& name_, std::string surname_, std::string& job_ ) : name{name_}, surname{std::move(surname_)}, job{job_}, score{0} {}
+    Player()=default;
+    Player (std::string& name_, std::string& surname_) ;
     [[maybe_unused]] Player (const Player &other)=default;
     //[[nodiscard]] int get_score() const;
-    std::string get_name() {return name; }
-    //std::string get_job() {return job;}
+    std::string get_name();
+    std::string get_surname();
+
     ~Player();
 
     friend std::ostream & operator << (std::ostream &out, const Player &p);

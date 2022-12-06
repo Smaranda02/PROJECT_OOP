@@ -5,6 +5,7 @@
 #include "Game.h"
 #include "SignUp.h"
 #include "SFML/Graphics.hpp"
+#include "Exceptions.h"
 
 void Game::initWindow() {
     this->windowMenu = new sf::RenderWindow(sf::VideoMode(800,600), "Main Menu");
@@ -69,13 +70,16 @@ void Game::updateSFMLEvents() {
 
                 if(option==0)
                 {
-                        SignUp signUp;
-                        while (signUp.getWindow()->isOpen())
-                        {
-                        signUp.SFMLevents();
-                        signUp.render();
-                         }
 
+                        try {
+                            SignUp signUp;
+                            while (signUp.getWindow()->isOpen()) {
+                                signUp.SFMLevents();
+                                signUp.render();
+                            }
+                        } catch (const eroare_aplicatie& err) {
+                            std::cout << err.what() << "\n";
+                        }
                 }
 
                 if(option==1) {
@@ -107,13 +111,17 @@ Game::Game() {
     this->windowMenu= nullptr;
     this->initWindow();
     this->menu = new Menu(*(this->windowMenu));
+    //throw eroare_constructor
 }
 
-[[maybe_unused]] Game::Game(const Game &other) : text{other.text}, font{other.font}, event{other.event}, button{other.button} {
+
+
+[[maybe_unused]] Game::Game(const Game &other) : text{other.text}, font{other.font}, event{other.event} {
 
     windowMenu=new sf::RenderWindow;
     menu=new Menu;
 }
+
 
 void Game::render() {
 
@@ -168,12 +176,10 @@ void Game::start_game() {
 Game& Game::operator=(const Game &other){
     if(this==&other)
         return *this;
-
            windowMenu = new sf::RenderWindow;
            text = other.text;
            font = other.font;
            event = other.event;
-           button = other.button;
            menu = new Menu;
            return *this;
 }

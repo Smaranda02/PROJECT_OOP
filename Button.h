@@ -6,11 +6,11 @@
 #define OOP_BUTTON_H
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
-
+#include <memory>
 
 
 class Button {
-private:
+protected:
     sf::Color idleColor = sf::Color::Red ;
     sf::Color hoverColor = sf::Color::Blue;
     sf::Text text;
@@ -23,9 +23,11 @@ public:
     Button();
     Button(float x,float y, float width, float height, sf::Font* font, const std::string& text);
     //bool isPressed() const;
-    ~Button();
+    virtual ~Button();
     void render(sf::RenderTarget *target);
-    void update( sf::Vector2f mousePos);
+    virtual void update( sf::Vector2f mousePos)=0;
+    virtual std::shared_ptr<Button> clone() const = 0;
+    //void virtual function()=0;
 };
 
 

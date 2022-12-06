@@ -19,7 +19,6 @@ class Game {
         sf::Font font;
         sf::Event event{};
         //sf::Color colour;
-        Button button; //agregare
         Menu* menu;  //agregare
 
     public:
@@ -34,8 +33,6 @@ class Game {
         void render();
         virtual ~Game();
     };
-
-
 
 
 

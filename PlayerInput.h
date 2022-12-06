@@ -8,6 +8,7 @@
 #include "iostream"
 #include "SFML/Graphics.hpp"
 #include <sstream>
+#include "string"
 
 #define DELETE_KEY 8
 #define ENTER_KEY 13
@@ -16,13 +17,12 @@
 //https://www.youtube.com/watch?v=T31MoLJws4U
 
 
-
 class PlayerInput {
 private:
     sf::Text textbox;
     std::ostringstream text;
     bool isSelected = false;
-    bool hasLimit = false;
+    bool hasLimit;
     int limit = 0;
 
     void inputLogic(auto charTyped) {
@@ -57,9 +57,10 @@ public:
     PlayerInput(int size, sf::Color color, bool sel);
     void setFont(sf::Font &font);
     void setPosition(sf::Vector2f pos);
+    std::string& get_text();
     //void setLimit(bool ToF);
     //void setLimit(bool ToF, int lim);
-    //void setSelected(bool sel);
+    void setSelected(bool sel);
     //std::string getText();
     void drawTo(sf::RenderWindow &window);
     void typedOn(sf::Event input);

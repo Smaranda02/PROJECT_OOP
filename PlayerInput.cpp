@@ -3,11 +3,16 @@
 //
 
 #include "PlayerInput.h"
+#include "Exceptions.h"
 
 PlayerInput::PlayerInput(int size, sf::Color color, bool sel) {
+    hasLimit=false;
+    if(size<0)
+        throw eroare_constructor("dimesniune negativa");
     textbox.setCharacterSize(size);
     textbox.setFillColor(color);
     isSelected = sel;
+
     if(sel){
         textbox.setString("_");
     }
@@ -15,6 +20,7 @@ PlayerInput::PlayerInput(int size, sf::Color color, bool sel) {
     else {
         textbox.setString("");
     }
+
 }
 
 
@@ -42,18 +48,18 @@ void PlayerInput::setLimit(bool ToF, int lim) {
  */
 
 
-/*
+
 void PlayerInput::setSelected(bool sel) {
      isSelected = sel;
      if(!sel) {
          std::string t =text.str();
          std::string newT ;
-         for(int i=0; i < int(t.length())-1; i++)
+         for(int i=0; i < int(t.length()); i++)
              newT += t[i];
          textbox.setString(newT);
      }
 }
- */
+
 
 /*
 std::string PlayerInput::getText() {
@@ -87,6 +93,10 @@ void PlayerInput::drawTo(sf::RenderWindow &window){
     window.draw(textbox);
 }
 
+
+
 PlayerInput::~PlayerInput() { std::cout<<"Destructor for PlayerInput called"; }
 
-PlayerInput::PlayerInput() {std::cout<<"Constructor called for PlayerInput";}
+PlayerInput::PlayerInput() {hasLimit=false; std::cout<<"Constructor called for PlayerInput";}
+
+std::string& PlayerInput::get_text() {return (std::string &) textbox.getString(); }

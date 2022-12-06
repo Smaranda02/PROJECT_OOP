@@ -13,12 +13,10 @@
 
 class Menu {
 private:
-    //Button SignUp;
-    //Button Rules;
+
     std::array <sf::Text,2> options;
     //std::vector<std::string> menuText = {"SignUp", "Rules"};
     sf::Font font;
-    //int optionsNumber=2;
     int optionsSelected=0;
 
 public:
