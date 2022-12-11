@@ -4,9 +4,10 @@
 
 #include "SignUp.h"
 #include "Exceptions.h"
-#include "SubmitButton.h"
 #include "Player.h"
-#include "StartGameButton.h"
+#include "Intermediate.h"
+#include "Beginner.h"
+#include "Advanced.h"
 
  PlayerInput& SignUp::get_name() {return *(this->prenume); }
  PlayerInput& SignUp::get_surname() {return *(this->nume); }
@@ -21,9 +22,6 @@ SignUp::SignUp() {
 
     this->nume = new PlayerInput(15, sf::Color::White, false);
     this->prenume = new PlayerInput(15, sf::Color::White, false);
-
-    this->playButton =   StartGameButton(600,400,150,50, &this->font, "Start Game");
-    this->submitButton = SubmitButton(600,300,150,50, &this->font, "Submit");
 
     this->boxName.setPosition(sf::Vector2f(100,200));
     this->boxName.setSize(sf::Vector2f(static_cast<float>(width/2.5), static_cast<float>(height/18)));
@@ -42,12 +40,14 @@ SignUp::SignUp() {
                                          }
 
 
+    this->playButton =   StartGameButton(600,400,150,50, this->font, "Start Game");
+    this->submitButton = SubmitButton(600,300,150,50, this->font, "Submit");
+
+
     this->nume->setFont(font);
     this->nume->setPosition(sf::Vector2f(100, 200));
     this->prenume->setFont(font);
     this->prenume->setPosition(sf::Vector2f(100, 300));
-
-    this->player = Player();
 
 }
 
@@ -139,7 +139,7 @@ SignUp::~SignUp(){
 
 
 [[maybe_unused]] SignUp::SignUp(const SignUp &other): font{other.font},mousePosition{other.mousePosition},
-                                                      event{other.event}, player{other.player},  playButton{other.playButton},
+                                                      event{other.event},  playButton{other.playButton},
                                                       submitButton{other.submitButton}
                                                       {
     windowSignUp=new sf::RenderWindow;
@@ -151,20 +151,28 @@ SignUp::~SignUp(){
 }
 
 
-SignUp& SignUp::operator=(const SignUp &other) {
 
-    if(this==&other)
-        return *this;
+void swap(SignUp& signUp1, SignUp& signUp2)
+{
+    using::std::swap;
+    swap(signUp1.font, signUp2.font);
+    swap(signUp1.submitButton, signUp2.submitButton);
+    swap(signUp1.mousePosition,signUp2.mousePosition);
+    swap(signUp1.windowSignUp,signUp2.windowSignUp);
+    swap(signUp1.event,signUp2.event);
+    swap(signUp1.nume, signUp2.nume);
+    swap(signUp1.prenume,signUp2.prenume);
+    swap(signUp1.playButton,signUp2.playButton);
+    swap(signUp1.boxSurname,signUp2.boxSurname);
+    swap(signUp1.boxName,signUp2.boxName);
+    swap(signUp1.event,signUp2.event);
 
-    font=other.font;
-    submitButton=other.submitButton;
-    mousePosition=other.mousePosition;
-    windowSignUp=other.windowSignUp;
-    event=other.event;
-    nume=other.nume;
-    prenume=other.prenume;
-    player=other.player;
-    playButton=other.playButton;
+}
+
+
+SignUp& SignUp::operator=(SignUp other) {
+
+    swap(*this,other);
     return *this;
 
 }
@@ -179,10 +187,46 @@ void SignUp::draw(sf::RenderTarget *target) {
 void SignUp::checkButtonState() {
 
     if(submitButton.get_buttonState() && !pressedOnce) {
-        Player tmp(this->prenume->get_text(), this->nume->get_text());
-        this->player=tmp;
+
+        bool gasit=false;
+       for(auto& player : players)
+            if( player->get_name() == this->prenume->get_text() && player->get_surname()==this->nume->get_text()) {
+                gasit=true;
+                std::vector<std::shared_ptr<Player>>::iterator new_end;
+                new_end=std::remove(players.begin(), players.end(), player);  ///il sterg din vector si il reintroduc cu nicelul corect
+                new_end.operator++();
+
+                 if (player->get_level() == 1) {
+                    std::shared_ptr<Intermediate>in = std::make_shared<Intermediate>(this->prenume->get_text(), this->nume->get_text());
+                    this->players.push_back(std::shared_ptr<Intermediate>(in));
+                    std::cout<< players.back()->get_name()<<" "<<players.back()->get_surname();
+                }
+
+                 else if (player->get_level() == 2) {
+                    std::shared_ptr<Advanced> ad = std::make_shared<Advanced>(this->prenume->get_text(), this->nume->get_text());
+                    this->players.push_back(std::shared_ptr<Advanced>(ad));
+                    std::cout<< players.back()->get_name()<<" "<<players.back()->get_surname();
+                }
+
+
+                ///nu mai adaug si asta cred
+                 else if (player->get_level() == 3) {
+                     std::shared_ptr<Advanced> ad = std::make_shared<Advanced>(this->prenume->get_text(), this->nume->get_text());
+                     this->players.push_back(std::shared_ptr<Advanced>(ad));
+                     std::cout<< players.back()->get_name()<<" "<<players.back()->get_surname();
+                 }
+            }
+
+       if(gasit==0)
+       {
+           std::shared_ptr<Beginner> bi = std::make_shared<Beginner>(this->prenume->get_text(), this->nume->get_text());
+           this->players.push_back(std::shared_ptr<Beginner>(bi));
+           std::cout<< players.back()->get_name()<<" "<<players.back()->get_surname();
+
+       }
+
         pressedOnce=true;
-        std::cout<<player.get_name()<<" "<<player.get_surname();
+        std::cout<< players[players.size()-1]->get_name()<<" "<<players[players.size()-1]->get_surname();
     }
 
 }

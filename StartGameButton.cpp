@@ -17,7 +17,7 @@ void StartGameButton::update(const sf::Vector2f mousePos)  {
         //Pressed
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             //this->buttonState=BTN_PRESSED;
-
+            incrementPressed();
             PlayGame wordGame;
             wordGame.playGame();
         }

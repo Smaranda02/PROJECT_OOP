@@ -8,27 +8,31 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <utility>
+#include <memory>  ///pentru std::shared_ptr<>
 
 
 class Player {
-private:
+protected:
     std::string name;
     std::string surname;
-
-
+    int level=0;
 public:
     Player()=default;
     Player (std::string& name_, std::string& surname_) ;
-    [[maybe_unused]] Player (const Player &other)=default;
     //[[nodiscard]] int get_score() const;
     std::string get_name();
     std::string get_surname();
+    [[nodiscard]] int get_level() const;
+    //virtual void set_nivel()=0;
 
+    [[nodiscard]] virtual std::shared_ptr<Player> clone() const = 0;
     ~Player();
 
     friend std::ostream & operator << (std::ostream &out, const Player &p);
 
+protected:
     Player& operator=(const Player &p);
+    [[maybe_unused]] Player (const Player &other)=default;
 };
 
 

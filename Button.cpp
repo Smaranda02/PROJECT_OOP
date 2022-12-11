@@ -5,31 +5,42 @@
 #include "Button.h"
 #include "iostream"
 
-/*
- bool Button::isPressed() const {
-    if(this->buttonState == BTN_PRESSED)
-        return true;
-    return false;
+int Button::pressedNumber=0;
+
+
+Button::Button(const  Button& other) : idleColor{other.idleColor}, hoverColor{other.idleColor},
+                                       text{other.text}, font{other.font} , shape{other.shape}{}
+
+
+void Button::incrementPressed() {
+    pressedNumber++;
+    std::cout<<"The button was pressed "<<pressedNumber<<" times\n";
 }
-*/
+
+std::ostream& operator<<(std::ostream& os, const Button& button) {
+    button.afisare(os);
+    return os;
+}
+
+
+void Button:: afisare(std::ostream& os) const {
+    os << type << "\n";
+}
+
 
 void Button::render(sf::RenderTarget *target) {
     target->draw(this->shape);
     target->draw(this->text);
 }
 
-Button::Button() {
-    //this->buttonState = BTN_IDLE;
-    this->font = nullptr;
-}
 
-Button::Button(float x, float y, float width, float height, sf::Font *font, const std::string& text) :   font(font) {
+Button::Button(float x, float y, float width, float height, sf::Font& font, const std::string& text) :   font(font) {
 
     //this->buttonState = BTN_IDLE;
     this->shape.setPosition(sf::Vector2f(x, y));
     this->shape.setSize(sf::Vector2f(width, height));
     this->shape.setFillColor(idleColor);
-    this->text.setFont(*this->font);
+    this->text.setFont(font);
     this->text.setString(text);
     this->text.setFillColor(sf::Color::White);
     this->text.setCharacterSize(15);

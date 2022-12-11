@@ -4,14 +4,29 @@
 
 #include "PlayGame.h"
 #include "iostream"
+#include "Exceptions.h"
 
 PlayGame::PlayGame() {
     this->windowPlayGame.create(sf::VideoMode(800, 600), "PlayGame");
     this->windowPlayGame.setVerticalSyncEnabled(true);
     this->windowPlayGame.setFramerateLimit(60);
 
-    //this->wordList.insert("CASA", "LOCUINTA");
-    //wordList[0]
+    this->wordList.insert(std::pair<std::string, std::string>("CASA", "LOCUINTA"));
+    this->wordList.insert(std::pair<std::string, std::string>("Masa", "Obiect"));
+
+
+    if (!font.loadFromFile("arial.ttf")) { std::cout << "EROARE LA INCARACREA FONTULUI";
+        throw eroare_font();
+    }
+
+
+    this->shape.setPosition(sf::Vector2f(160, 50));
+    this->shape.setSize(sf::Vector2f(480, 100));
+    this->shape.setOutlineColor(sf::Color::Black);
+    this->shape.setOutlineThickness(3);
+    this->shape.setFillColor(sf::Color::Transparent);
+
+
 }
 
 
@@ -74,6 +89,7 @@ void PlayGame::render() {
     this->windowPlayGame.clear();
     this->windowPlayGame.draw(background);
     this->windowPlayGame.draw(text);
+    this->windowPlayGame.draw(shape);
     this->windowPlayGame.display();
 
 }

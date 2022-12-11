@@ -12,9 +12,16 @@
 
 //int Player::get_score() const{ return score; }
 
+
+
+int Player::get_level() const{
+    return level;
+}
+
+
 std::ostream & operator << (std::ostream &out, const Player &p)
 {
-    out<<p.name;
+    out<<p.name<<" "<<p.surname;
     return out;
 }
 

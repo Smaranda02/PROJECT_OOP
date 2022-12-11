@@ -54,8 +54,8 @@ void PlayerInput::setSelected(bool sel) {
      if(!sel) {
          std::string t =text.str();
          std::string newT ;
-         for(int i=0; i < int(t.length()); i++)
-             newT += t[i];
+         for(char i : t)
+             newT += i;
          textbox.setString(newT);
      }
 }

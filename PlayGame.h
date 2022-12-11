@@ -14,14 +14,15 @@ private:
     sf::Event event{};
     sf::Text text;
     sf::Font font;
-    //std::map<sf::Text, sf::Text> wordList;
+    sf::RectangleShape shape;
+    std::map<std::string, std::string> wordList;
 public:
     PlayGame();
     void updateSFMLEvents();
     void render();
     void update();
     void playGame();
-    void draw();
+    //void draw();
 };
 
 
