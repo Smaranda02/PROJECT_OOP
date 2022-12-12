@@ -5,8 +5,8 @@
 #ifndef OOP_PLAYGAME_H
 #define OOP_PLAYGAME_H
 #include "SFML/Graphics.hpp"
-#include "Button.h"
 #include <map>
+#include "SendAnswer.h"
 
 class PlayGame {
 private:
@@ -16,13 +16,23 @@ private:
     sf::Font font;
     sf::RectangleShape shape;
     std::map<std::string, std::string> wordList;
+    SendAnswer sendButton;
+    sf::Vector2i mousePosition;
+
+
+
 public:
     PlayGame();
     void updateSFMLEvents();
     void render();
     void update();
     void playGame();
-    //void draw();
+    void draw(sf::RenderTarget* target);
+    void updateMousePosition();
+    sf::RenderWindow& getWindow();
+
+
+
 };
 
 

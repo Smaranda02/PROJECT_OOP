@@ -11,6 +11,7 @@ class Beginner : public Player{
 public:
     Beginner(std::string& name_, std::string& surname_);
     [[nodiscard]] std::shared_ptr<Player> clone() const override;
+
 };
 
 

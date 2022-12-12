@@ -26,7 +26,7 @@ public:
     //virtual void set_nivel()=0;
 
     [[nodiscard]] virtual std::shared_ptr<Player> clone() const = 0;
-    ~Player();
+    virtual ~Player();
 
     friend std::ostream & operator << (std::ostream &out, const Player &p);
 

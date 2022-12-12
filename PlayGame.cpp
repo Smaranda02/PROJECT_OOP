@@ -11,14 +11,32 @@ PlayGame::PlayGame() {
     this->windowPlayGame.setVerticalSyncEnabled(true);
     this->windowPlayGame.setFramerateLimit(60);
 
-    this->wordList.insert(std::pair<std::string, std::string>("CASA", "LOCUINTA"));
-    this->wordList.insert(std::pair<std::string, std::string>("Masa", "Obiect"));
+    ///lvl1
+    this->wordList["CASA"] = "LOCUINTA";
+    this->wordList["Masa"]="Obiect pe care se asaza chestii";
+    this->wordList["INEL"]="ACCESORIU PENTRU DEGET";
+    this->wordList["Sneakersi"] ="Adidasi";
+    this->wordList["Ghiozdan"]="Rucsac";
+    ///lvl2
+    this->wordList["SPOVEDANIE"]="MARTURISIRE A GRESELILOR FACUTE";
+    this->wordList["ELICOPTER"]="DECOLEAZA SI ATEREIZEAZA FARA PISTA";
+    this->wordList["MIRODENII"]="INGREDIENTE DE NATURA VEGETLA, AROMATE SAU PICANTE";
+    this->wordList["ISCALI"]="A SCRIE NUMELE PE TEXTUL UNUI ACT OFICIAL";
+    this->wordList["SUBORDONAT"]="CARE SE AFLA SUB AUTORITATEA SAUCONDUCEREA CUIVA";
+    ///LVL3
+    this->wordList["INGRAMADIT"]="CARE ESTE ADUNAT LAOLALTA IN NUMAR PREA MARE";
+    this->wordList["CONJUNCTIE"]="PARTE DE VORBIRE CARE LEAGA 2 PROPOZITII SAU DOUA CUVINTE CU ACELASI ROL";
+    this->wordList["RESPIRATIE"]="PRIMUL TIMP AL RESPIRATIEI";
+    this->wordList["COMEDIANT"]="ACTOR SAU ACTRITA DE CIRC, DE BALCI";
+    this->wordList["ONOMATOPEE"]="CUVANT CARE, PRIN ELEMENTELE LUI SONORE IMITA UN SUNET SAU ZGOMOT";
 
 
     if (!font.loadFromFile("arial.ttf")) { std::cout << "EROARE LA INCARACREA FONTULUI";
         throw eroare_font();
     }
 
+
+    this->sendButton = SendAnswer(600,400,150,50, this->font, "Send Answer");
 
     this->shape.setPosition(sf::Vector2f(160, 50));
     this->shape.setSize(sf::Vector2f(480, 100));
@@ -31,10 +49,25 @@ PlayGame::PlayGame() {
 
 
 
+sf::RenderWindow& PlayGame::getWindow()
+{ return this->windowPlayGame; }
+
+
+void PlayGame::updateMousePosition() {
+    this->mousePosition = sf::Mouse::getPosition(this->getWindow());
+}
+
+
+
 void PlayGame::updateSFMLEvents() {
 
 
     while (this->windowPlayGame.pollEvent(event)) {
+
+
+        this->updateMousePosition();
+        this->sendButton.update(static_cast<sf::Vector2f>(this->mousePosition));
+
 
         if (this->event.type == sf::Event::Closed)
             this->windowPlayGame.close();
@@ -76,20 +109,23 @@ void PlayGame::render() {
     if(!font.loadFromFile("arial.ttf"))
         std::cout<<"EROARE LA INCARACREA FONTULUI";
 
-    float width=float(windowPlayGame.getSize().x);
-    float height=float(windowPlayGame.getSize().y);
 
     text.setFont(font);
     text.setOutlineColor(sf::Color::Black);
     text.setOutlineThickness(2.f);
     text.setFillColor(sf::Color::White);
-    text.setString("HELLO");
-    text.setPosition(sf::Vector2f(width/2,height / 2 ));
 
+
+    text.setString(wordList["CASA"]);
+    text.setPosition(sf::Vector2f(160, 50));
+
+
+    sf::RenderTarget* target = &this->windowPlayGame;
     this->windowPlayGame.clear();
     this->windowPlayGame.draw(background);
     this->windowPlayGame.draw(text);
     this->windowPlayGame.draw(shape);
+    this->sendButton.render(target);
     this->windowPlayGame.display();
 
 }
