@@ -142,12 +142,13 @@ SignUp::~SignUp(){
                                                       event{other.event},  playButton{other.playButton},
                                                       submitButton{other.submitButton}
                                                       {
+                                                          this->players = *new std::vector<std::shared_ptr<Player>>;
+    for(auto const &i: other.players)
+        this->players.push_back(i->clone());
+
     windowSignUp=new sf::RenderWindow;
     nume = new PlayerInput;
     prenume=new PlayerInput;
-
-
-
 }
 
 
