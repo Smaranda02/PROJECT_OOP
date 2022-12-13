@@ -3,7 +3,7 @@
 //
 
 #include "SendAnswer.h"
-
+#include "PlayGame.h"
 
 
 void SendAnswer::update(const sf::Vector2f mousePos)  {
