@@ -7,6 +7,9 @@
 #include "Exceptions.h"
 
 
+std::shared_ptr<Player> PlayGame::playerInGame=nullptr;
+
+
 void PlayGame::updatePlayer(){
     playerInGame->increment_score();
 }
@@ -48,6 +51,8 @@ PlayGame::PlayGame() {
     this->shape.setOutlineColor(sf::Color::Black);
     this->shape.setOutlineThickness(3);
     this->shape.setFillColor(sf::Color::Transparent);
+
+
 
 
 }

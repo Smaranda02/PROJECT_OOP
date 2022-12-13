@@ -24,6 +24,7 @@ private:
 
 
 public:
+    static void updatePlayer();
     PlayGame();
     void updateSFMLEvents();
     void render();
@@ -32,10 +33,6 @@ public:
     //void draw(sf::RenderTarget* target);
     void updateMousePosition();
     sf::RenderWindow& getWindow();
-    static void updatePlayer();
-
-
-
 };
 
 

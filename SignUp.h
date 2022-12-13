@@ -9,7 +9,6 @@
 #include "iostream"
 #include "PlayerInput.h"
 #include "Player.h"
-#include "Button.h"
 #include "SubmitButton.h"
 #include "StartGameButton.h"
 #include "utility" //pentru swap
