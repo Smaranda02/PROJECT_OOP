@@ -13,3 +13,7 @@ std::shared_ptr<Player> Beginner::clone() const  {
 Beginner::Beginner(std::string& name_, std::string& surname_) : Player(name_, surname_){
     this->level=1;
 }
+
+void Beginner::increment_score() {
+    score+=10;
+}

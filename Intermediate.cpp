@@ -11,3 +11,8 @@ return std::make_shared<Intermediate>(*this);
 Intermediate::Intermediate(std::string& name_, std::string& surname_) : Player(name_, surname_){
     this->level=2;
 }
+
+
+void Intermediate::increment_score() {
+    score+=20;
+}

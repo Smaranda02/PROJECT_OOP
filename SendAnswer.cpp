@@ -19,7 +19,7 @@ void SendAnswer::update(const sf::Vector2f mousePos)  {
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             //this->buttonState=BTN_PRESSED;
             incrementPressed();
-
+            PlayGame::updatePlayer();
         }
 
     }

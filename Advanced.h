@@ -11,6 +11,7 @@ class Advanced : public Player{
 public:
     Advanced(std::string& name_, std::string& surname_);
     [[nodiscard]] std::shared_ptr<Player> clone() const override ;
+    void increment_score() override;
 };
 
 

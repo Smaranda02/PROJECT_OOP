@@ -6,6 +6,11 @@
 #include "iostream"
 #include "Exceptions.h"
 
+
+void PlayGame::updatePlayer(){
+    playerInGame->increment_score();
+}
+
 PlayGame::PlayGame() {
     this->windowPlayGame.create(sf::VideoMode(800, 600), "PlayGame");
     this->windowPlayGame.setVerticalSyncEnabled(true);

@@ -6,9 +6,10 @@
 #include "Exceptions.h"
 
 PlayerInput::PlayerInput(int size, sf::Color color, bool sel) {
-    hasLimit=false;
+    hasLimit= false;
+    setLimit(true, 30);
     if(size<0)
-        throw eroare_constructor("dimesniune negativa");
+        throw eroare_input("dimesniune negativa");
     textbox.setCharacterSize(size);
     textbox.setFillColor(color);
     isSelected = sel;
@@ -28,25 +29,19 @@ void PlayerInput::setPosition(sf::Vector2f pos) {
     textbox.setPosition(pos);
 }
 
-/*
-void PlayerInput::setLimit(bool ToF) {
-    hasLimit= ToF;
-}
-*/
 
 
 void PlayerInput::setFont(sf::Font &font) {
     textbox.setFont(font);
 }
 
-///to be continued
-/*
+
 void PlayerInput::setLimit(bool ToF, int lim) {
     hasLimit =ToF;
     limit = lim;
+    if(lim<0)
+        throw eroare_input("dimnesiune maxima negativa");
 }
- */
-
 
 
 void PlayerInput::setSelected(bool sel) {

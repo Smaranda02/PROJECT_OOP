@@ -17,7 +17,7 @@ public:
 };
 
 
-class eroare_constructor : public eroare_aplicatie{
+class eroare_input : public eroare_aplicatie{
 public:
     using eroare_aplicatie::eroare_aplicatie;
 };

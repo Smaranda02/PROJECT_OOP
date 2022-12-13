@@ -77,7 +77,10 @@ void Game::updateSFMLEvents() {
                                 signUp.SFMLevents();
                                 signUp.render();
                             }
-                        } catch (const eroare_aplicatie& err) {
+                        } catch (const eroare_input& err){
+                            std::cout<<err.what()<<"\n";
+                        }
+                        catch (const eroare_aplicatie& err) {
                             std::cout << err.what() << "\n";
                         }
                 }
@@ -111,7 +114,7 @@ Game::Game() {
     this->windowMenu= nullptr;
     this->initWindow();
     this->menu = new Menu(*(this->windowMenu));
-    //throw eroare_constructor
+    //throw eroare_input
 }
 
 

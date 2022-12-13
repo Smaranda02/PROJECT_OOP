@@ -7,6 +7,7 @@
 #include "SFML/Graphics.hpp"
 #include <map>
 #include "SendAnswer.h"
+#include "Player.h"
 
 class PlayGame {
 private:
@@ -18,6 +19,7 @@ private:
     std::map<std::string, std::string> wordList;
     SendAnswer sendButton;
     sf::Vector2i mousePosition;
+    static std::shared_ptr<Player> playerInGame;
 
 
 
@@ -27,9 +29,10 @@ public:
     void render();
     void update();
     void playGame();
-    void draw(sf::RenderTarget* target);
+    //void draw(sf::RenderTarget* target);
     void updateMousePosition();
     sf::RenderWindow& getWindow();
+    static void updatePlayer();
 
 
 

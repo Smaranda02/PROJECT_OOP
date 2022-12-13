@@ -20,8 +20,12 @@ SignUp::SignUp() {
     float width = float(windowSignUp->getSize().x);
     float height = float(windowSignUp->getSize().y);
 
-    this->nume = new PlayerInput(15, sf::Color::White, false);
-    this->prenume = new PlayerInput(15, sf::Color::White, false);
+    try {
+        this->nume = new PlayerInput(15, sf::Color::White, false);
+        this->prenume = new PlayerInput(15, sf::Color::White, false);
+    } catch(const eroare_input& err){
+        std::cout<<err.what()<<"\n";
+    }
 
     this->boxName.setPosition(sf::Vector2f(100,200));
     this->boxName.setSize(sf::Vector2f(static_cast<float>(width/2.5), static_cast<float>(height/18)));
@@ -140,9 +144,9 @@ SignUp::~SignUp(){
 
 [[maybe_unused]] SignUp::SignUp(const SignUp &other): font{other.font},mousePosition{other.mousePosition},
                                                       event{other.event},  playButton{other.playButton},
-                                                      submitButton{other.submitButton}
-                                                      {
-                                                          this->players = *new std::vector<std::shared_ptr<Player>>;
+                                                      submitButton{other.submitButton} {
+
+    this->players = *new std::vector<std::shared_ptr<Player>>;
     for(auto const &i: other.players)
         this->players.push_back(i->clone());
 
@@ -220,8 +224,8 @@ void SignUp::checkButtonState() {
 
        if(gasit==0)
        {
-           std::shared_ptr<Beginner> bi = std::make_shared<Beginner>(this->prenume->get_text(), this->nume->get_text());
-           this->players.push_back(std::shared_ptr<Beginner>(bi));
+           std::shared_ptr<Beginner> be = std::make_shared<Beginner>(this->prenume->get_text(), this->nume->get_text());
+           this->players.push_back(std::shared_ptr<Beginner>(be));
            std::cout<< players.back()->get_name()<<" "<<players.back()->get_surname();
 
        }

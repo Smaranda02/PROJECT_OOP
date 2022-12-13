@@ -5,6 +5,7 @@
 #ifndef OOP_SENDANSWER_H
 #define OOP_SENDANSWER_H
 #include "Button.h"
+#include "PlayGame.h"
 
 class SendAnswer : public Button {
 
