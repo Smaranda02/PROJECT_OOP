@@ -13,8 +13,6 @@ int main() {
 //try catch in SingUp.cpp in constructor
 //in PlayGame.cpp am o functie statica updatePlayer pe cra eo apelez din SendAnswer.cpp
 
-///mai fac o functie virtuala in player
-
     Game game;
     game.start_game();
 
