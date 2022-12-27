@@ -16,10 +16,11 @@
 //#include "TemplateNewPlayer.h"
 #include "StartGameButton.h"
 
-
+/*
 std::vector<std::shared_ptr<Player>> SignUp::get_players(){
     return this->players;
 }
+*/
 
 PlayerInput& SignUp::get_name() {return *(this->prenume); }
 PlayerInput& SignUp::get_surname() {return *(this->nume); }
