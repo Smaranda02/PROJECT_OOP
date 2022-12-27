@@ -11,10 +11,33 @@ int main() {
 //am folosit smart pointers in SignUp la vectorul de pointeri Player
 //throw in PlayerInput in functia setLimit
 //try catch in SingUp.cpp in constructor
-//in PlayGame.cpp am o functie statica updatePlayer pe cra eo apelez din SendAnswer.cpp
+//2 functii virtuale pure in clasa Player
 
-    Game game;
-    game.start_game();
+   auto& game=Game::get_game();
+   game.start_game();
+
+   //constr copiere sign up
+   //schimb tipul returnat in sign up inde updataez lista de player ca sa scap de functia aia statica
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     return 0;
 }

@@ -31,7 +31,6 @@ public:
     void render(sf::RenderTarget *target);
     virtual void update( sf::Vector2f mousePos)=0;
     virtual std::shared_ptr<Button> clone() const = 0;
-    //void virtual function()=0;
     friend std::ostream& operator<<(std::ostream& os, const Button& button) ;
     static void incrementPressed();
     Button(const Button& other);

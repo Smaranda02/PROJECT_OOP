@@ -5,6 +5,11 @@
 #include "PlayerInput.h"
 #include "Exceptions.h"
 
+
+PlayerInput::PlayerInput(const PlayerInput &other) : textbox{other.textbox} ,
+              isSelected{other.isSelected}, hasLimit{other.hasLimit}, limit{other.limit}{}
+
+
 PlayerInput::PlayerInput(int size, sf::Color color, bool sel) {
     hasLimit= false;
     setLimit(true, 30);

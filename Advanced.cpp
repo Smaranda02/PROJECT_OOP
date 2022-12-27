@@ -9,11 +9,25 @@ return std::make_shared<Advanced>(*this);
 }
 
 
+
+void Advanced::updatePlayer(){
+    ///if(answer == correct)
+    this->increment_score();
+    this->set_money();
+    std::cout<<"The player has now "<<money<<" money \n";
+}
+
+
+
 Advanced::Advanced(std::string& name_, std::string& surname_) : Player(name_, surname_){
     this->level = 3 ;
 }
 
-
 void Advanced::increment_score() {
-    score+=30;
+    score+=incrementScore;
+}
+
+
+void Advanced::set_money() {
+    money=multiplyScore*score;
 }

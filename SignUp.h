@@ -8,11 +8,12 @@
 #include "SFML/Graphics.hpp"
 #include "iostream"
 #include "PlayerInput.h"
+//#include "Player/Player.h"
 #include "Player.h"
 #include "SubmitButton.h"
 #include "StartGameButton.h"
 #include "utility" //pentru swap
-
+#include "StartGameButton.h"
 
 class SignUp {
 
@@ -31,7 +32,6 @@ private:
     sf::RectangleShape boxSurname;
 
 
-
 public:
     SignUp();
     void updateMousePosition();
@@ -41,6 +41,7 @@ public:
     void draw(sf::RenderTarget* target);
     SignUp(const SignUp& other);
     ~SignUp();
+    std::vector<std::shared_ptr<Player>> get_players();
     PlayerInput& get_name() ;
     PlayerInput& get_surname();
     void SFMLevents();

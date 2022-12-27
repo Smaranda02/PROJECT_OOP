@@ -55,6 +55,7 @@ public:
     PlayerInput();
     ~PlayerInput();
     PlayerInput(int size, sf::Color color, bool sel);
+    PlayerInput(const PlayerInput& other);
     void setFont(sf::Font &font);
     void setPosition(sf::Vector2f pos);
     std::string& get_text();

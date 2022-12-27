@@ -4,13 +4,25 @@
 
 #include "SignUp.h"
 #include "Exceptions.h"
+//#include "Player/Player.h"
+//#include "Player/Intermediate.h"
+//#include "Player/Beginner.h"
+//#include "Player/Advanced.h"
 #include "Player.h"
-#include "Intermediate.h"
 #include "Beginner.h"
+#include "Intermediate.h"
 #include "Advanced.h"
+#include "PlayerInput.h"
+//#include "TemplateNewPlayer.h"
+#include "StartGameButton.h"
 
- PlayerInput& SignUp::get_name() {return *(this->prenume); }
- PlayerInput& SignUp::get_surname() {return *(this->nume); }
+
+std::vector<std::shared_ptr<Player>> SignUp::get_players(){
+    return this->players;
+}
+
+PlayerInput& SignUp::get_name() {return *(this->prenume); }
+PlayerInput& SignUp::get_surname() {return *(this->nume); }
 
 
 SignUp::SignUp() {
@@ -56,8 +68,9 @@ SignUp::SignUp() {
 }
 
 
-sf::RenderWindow* SignUp::getWindow()
-{ return this->windowSignUp; }
+sf::RenderWindow* SignUp::getWindow(){
+    return this->windowSignUp;
+}
 
 
 
@@ -72,9 +85,8 @@ void SignUp::SFMLevents() {
         while (this->windowSignUp->pollEvent(event)) {
 
             this->updateMousePosition();
-            this->playButton.update(static_cast<sf::Vector2f>(this->mousePosition));
             this->submitButton.update(static_cast<sf::Vector2f>(this->mousePosition));
-
+            this->playButton.update(static_cast<sf::Vector2f>(this->mousePosition), players.back());
 
              if (event.type == sf::Event::Closed) {
                 this->windowSignUp->close();
@@ -151,8 +163,8 @@ SignUp::~SignUp(){
         this->players.push_back(i->clone());
 
     windowSignUp=new sf::RenderWindow;
-    nume = new PlayerInput;
-    prenume=new PlayerInput;
+   nume = new PlayerInput(*other.nume);
+   prenume=new PlayerInput(*other.prenume);
 }
 
 
@@ -197,11 +209,11 @@ void SignUp::checkButtonState() {
        for(auto& player : players)
             if( player->get_name() == this->prenume->get_text() && player->get_surname()==this->nume->get_text()) {
                 gasit=true;
-                std::vector<std::shared_ptr<Player>>::iterator new_end;
-                new_end=std::remove(players.begin(), players.end(), player);  ///il sterg din vector si il reintroduc cu nicelul corect
-                new_end.operator++();
+
+                players.erase(std::remove(players.begin(), players.end(), player), players.end()); ///il sterg din vector si il reintroduc cu nivelul corect
 
                  if (player->get_level() == 1) {
+
                     std::shared_ptr<Intermediate>in = std::make_shared<Intermediate>(this->prenume->get_text(), this->nume->get_text());
                     this->players.push_back(std::shared_ptr<Intermediate>(in));
                     std::cout<< players.back()->get_name()<<" "<<players.back()->get_surname();
@@ -220,6 +232,8 @@ void SignUp::checkButtonState() {
                      this->players.push_back(std::shared_ptr<Advanced>(ad));
                      std::cout<< players.back()->get_name()<<" "<<players.back()->get_surname();
                  }
+
+                 break;
             }
 
        if(gasit==0)

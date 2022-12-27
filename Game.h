@@ -18,20 +18,18 @@ class Game {
         sf::Text text;
         sf::Font font;
         sf::Event event{};
-        //sf::Color colour;
         Menu* menu;  //agregare
+        Game();
 
     public:
-        Game();
-        void start_game();
-        void initWindow();
-
-    Game& operator=(const Game &other);
-    [[maybe_unused]] Game(const Game& other);
+    void start_game();
+    void initWindow();
+    static Game& get_game();
+    Game& operator=(const Game &other)=delete;
+    Game(const Game& other)=delete;
     void updateSFMLEvents();
-        void update();
-        void render();
-        virtual ~Game();
+    void render();
+    ~Game();
     };
 
 

@@ -9,11 +9,6 @@
 }
 */
 
-
-//int Player::get_score() const{ return score; }
-
-
-
 int Player::get_level() const{
     return level;
 }

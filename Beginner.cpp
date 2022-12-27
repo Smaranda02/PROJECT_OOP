@@ -10,10 +10,23 @@ std::shared_ptr<Player> Beginner::clone() const  {
 }
 
 
+
+void Beginner::updatePlayer(){
+    ///if(answer == correct)
+    this->increment_score();
+    this->set_money();
+    std::cout<<"The player has now "<<money<<" money \n";
+}
+
+
 Beginner::Beginner(std::string& name_, std::string& surname_) : Player(name_, surname_){
     this->level=1;
 }
 
 void Beginner::increment_score() {
-    score+=10;
+    score+=incrementScore;
+}
+
+void Beginner::set_money() {
+    money=multiplyScore*score;
 }

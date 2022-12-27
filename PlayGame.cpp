@@ -3,18 +3,11 @@
 //
 
 #include "PlayGame.h"
+
 #include "iostream"
 #include "Exceptions.h"
 
-
-std::shared_ptr<Player> PlayGame::playerInGame=nullptr;
-
-
-void PlayGame::updatePlayer(){
-    playerInGame->increment_score();
-}
-
-PlayGame::PlayGame() {
+PlayGame::PlayGame(const std::shared_ptr<Player>& player) {
     this->windowPlayGame.create(sf::VideoMode(800, 600), "PlayGame");
     this->windowPlayGame.setVerticalSyncEnabled(true);
     this->windowPlayGame.setFramerateLimit(60);
@@ -44,7 +37,7 @@ PlayGame::PlayGame() {
     }
 
 
-    this->sendButton = SendAnswer(600,400,150,50, this->font, "Send Answer");
+    this->sendButton = SendAnswer(600,400,150,50, this->font, "Send Answer", player);
 
     this->shape.setPosition(sf::Vector2f(160, 50));
     this->shape.setSize(sf::Vector2f(480, 100));
@@ -103,8 +96,9 @@ void PlayGame::updateSFMLEvents() {
 
             }
 
-
         }
+
+
     }
 }
 
@@ -136,15 +130,29 @@ void PlayGame::render() {
     this->windowPlayGame.draw(text);
     this->windowPlayGame.draw(shape);
     this->sendButton.render(target);
+
+
+    /*
+    float maxLength = 200; ///cati pixeli sa ocupe pe ecran maxim
+    unsigned int wordLetters = this->currentWord.length();
+    unsigned int nrLines=0;
+    float x_coordinate=0;
+    float spacing=10;
+    float length_line = (maxLength - (wordLetters-1)*spacing ) / wordLetters;
+
+    while(nrLines<wordLetters) {
+
+        //windowPlayGame.draw();
+
+        x_coordinate+=spacing;
+        nrLines++;
+    }
+
+*/
+
+
     this->windowPlayGame.display();
 
-}
-
-
-
-void PlayGame::update() {
-
-    this->updateSFMLEvents();
 }
 
 
@@ -153,7 +161,7 @@ void PlayGame::playGame() {
 
     while(this->windowPlayGame.isOpen()) {
 
-        this->update();
+        this->updateSFMLEvents();
         this->render();
 
     }

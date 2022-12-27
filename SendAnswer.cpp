@@ -3,7 +3,13 @@
 //
 
 #include "SendAnswer.h"
-#include "PlayGame.h"
+#include "Beginner.h"
+
+SendAnswer::SendAnswer(float x, float y, float width, float height, sf::Font& font, const std::string& text, const std::shared_ptr<Player>& player) :
+                            Button(x, y, width,  height, font, text) , playerInGame{player->clone()} {
+
+}
+
 
 
 void SendAnswer::update(const sf::Vector2f mousePos)  {
@@ -19,7 +25,7 @@ void SendAnswer::update(const sf::Vector2f mousePos)  {
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             //this->buttonState=BTN_PRESSED;
             incrementPressed();
-            PlayGame::updatePlayer();
+            this->playerInGame->updatePlayer();
         }
 
     }

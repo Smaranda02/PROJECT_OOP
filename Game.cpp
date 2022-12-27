@@ -7,6 +7,13 @@
 #include "SFML/Graphics.hpp"
 #include "Exceptions.h"
 
+
+Game& Game::get_game() {
+    static Game game;
+    return game;
+}
+
+
 void Game::initWindow() {
     this->windowMenu = new sf::RenderWindow(sf::VideoMode(800,600), "Main Menu");
 
@@ -118,14 +125,6 @@ Game::Game() {
 }
 
 
-
-[[maybe_unused]] Game::Game(const Game &other) : text{other.text}, font{other.font}, event{other.event} {
-
-    windowMenu=new sf::RenderWindow;
-    menu=new Menu;
-}
-
-
 void Game::render() {
 
 
@@ -158,43 +157,14 @@ void Game::render() {
 }
 
 
-void Game::update() {
-
-    this->updateSFMLEvents();
-}
-
 void Game::start_game() {
 
     while(this->windowMenu->isOpen()) {
 
-        this->update();
+        this->updateSFMLEvents();
         this->render();
 
     }
 
 }
 
-
-
-Game& Game::operator=(const Game &other){
-    if(this==&other)
-        return *this;
-           windowMenu = new sf::RenderWindow;
-           text = other.text;
-           font = other.font;
-           event = other.event;
-           menu = new Menu;
-           return *this;
-}
-
-
-/*
-Game::Game(const Game &other) {
-    windowMenu = other.windowMenu;
-    text = other.text;
-    font = other.font;
-    event = other.event;
-    button = other.button;
-    menu = other.menu;
-}
-*/

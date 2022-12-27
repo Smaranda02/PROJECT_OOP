@@ -7,8 +7,15 @@
 #include "SFML/Graphics.hpp"
 #include <map>
 #include "SendAnswer.h"
+//#include "Player/Player.h"
+//#include "Player/Beginner.h"
+//#include "Player/Intermediate.h"
+//#include "Player/Advanced.h"
 #include "Player.h"
-
+#include "Beginner.h"
+#include "Intermediate.h"
+#include "Advanced.h"
+#include "PlayerInput.h"
 class PlayGame {
 private:
     sf::RenderWindow windowPlayGame;
@@ -16,19 +23,16 @@ private:
     sf::Text text;
     sf::Font font;
     sf::RectangleShape shape;
+    //std::string currentWord;
     std::map<std::string, std::string> wordList;
     SendAnswer sendButton;
     sf::Vector2i mousePosition;
-    static std::shared_ptr<Player> playerInGame;
-
-
 
 public:
-    static void updatePlayer();
-    PlayGame();
+    PlayGame()=default;
+    explicit PlayGame(const std::shared_ptr <Player>& player);
     void updateSFMLEvents();
     void render();
-    void update();
     void playGame();
     //void draw(sf::RenderTarget* target);
     void updateMousePosition();

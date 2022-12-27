@@ -8,6 +8,9 @@
 int Button::pressedNumber=0;
 
 
+
+
+
 Button::Button(const  Button& other) : idleColor{other.idleColor}, hoverColor{other.idleColor},
                                        text{other.text}, font{other.font} , shape{other.shape}{}
 
