@@ -29,7 +29,7 @@ private:
     sf::Vector2i mousePosition;
 
 public:
-    PlayGame()=default;
+    PlayGame();
     explicit PlayGame(const std::shared_ptr <Player>& player);
     void updateSFMLEvents();
     void render();

@@ -10,7 +10,10 @@ SendAnswer::SendAnswer(float x, float y, float width, float height, sf::Font& fo
 
 }
 
+SendAnswer::SendAnswer(float x, float y, float width, float height, sf::Font& font, const std::string& text) :
+        Button(x, y, width,  height, font, text)  {
 
+}
 
 void SendAnswer::update(const sf::Vector2f mousePos)  {
     this->shape.setFillColor(this->idleColor);
@@ -25,7 +28,8 @@ void SendAnswer::update(const sf::Vector2f mousePos)  {
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             //this->buttonState=BTN_PRESSED;
             incrementPressed();
-            this->playerInGame->updatePlayer();
+            if(this->playerInGame!= nullptr)
+                 this->playerInGame->updatePlayer();
         }
 
     }

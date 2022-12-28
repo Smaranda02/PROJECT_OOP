@@ -37,7 +37,7 @@ StartGameButton::~StartGameButton() { std::cout<<"Destructor for Button called";
 
 
 
-void StartGameButton::update(const sf::Vector2f mousePos, const std::shared_ptr<Player>& player)  {
+void StartGameButton::update(const sf::Vector2f mousePos, const std::shared_ptr<Player>& player, bool playersEmpty)  {
     this->shape.setFillColor(this->idleColor);
 
     if(this->shape.getGlobalBounds().contains(mousePos))
@@ -49,8 +49,15 @@ void StartGameButton::update(const sf::Vector2f mousePos, const std::shared_ptr<
         //Pressed
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             //this->buttonState=BTN_PRESSED;
-            PlayGame wordGame(player);
-            wordGame.playGame();
+            if(!playersEmpty) {
+                PlayGame wordGame(player);
+                wordGame.playGame();
+            }
+
+            else {
+                PlayGame wordGame;
+                wordGame.playGame();
+            }
         }
 
     }

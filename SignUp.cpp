@@ -87,7 +87,11 @@ void SignUp::SFMLevents() {
 
             this->updateMousePosition();
             this->submitButton.update(static_cast<sf::Vector2f>(this->mousePosition));
-            this->playButton.update(static_cast<sf::Vector2f>(this->mousePosition), players.back());
+
+            bool playersEmpty=false;
+            if(players.empty())
+                playersEmpty=true;
+            this->playButton.update(static_cast<sf::Vector2f>(this->mousePosition), players.back(), playersEmpty);
 
              if (event.type == sf::Event::Closed) {
                 this->windowSignUp->close();

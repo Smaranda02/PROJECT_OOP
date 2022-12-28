@@ -44,10 +44,6 @@ PlayGame::PlayGame(const std::shared_ptr<Player>& player) {
     this->shape.setOutlineColor(sf::Color::Black);
     this->shape.setOutlineThickness(3);
     this->shape.setFillColor(sf::Color::Transparent);
-
-
-
-
 }
 
 
@@ -166,4 +162,44 @@ void PlayGame::playGame() {
 
     }
 
+}
+
+
+PlayGame::PlayGame() {
+    this->windowPlayGame.create(sf::VideoMode(800, 600), "PlayGame");
+    this->windowPlayGame.setVerticalSyncEnabled(true);
+    this->windowPlayGame.setFramerateLimit(60);
+
+    ///lvl1
+    this->wordList["CASA"] = "LOCUINTA";
+    this->wordList["Masa"]="Obiect pe care se asaza chestii";
+    this->wordList["INEL"]="ACCESORIU PENTRU DEGET";
+    this->wordList["Sneakersi"] ="Adidasi";
+    this->wordList["Ghiozdan"]="Rucsac";
+    ///lvl2
+    this->wordList["SPOVEDANIE"]="MARTURISIRE A GRESELILOR FACUTE";
+    this->wordList["ELICOPTER"]="DECOLEAZA SI ATEREIZEAZA FARA PISTA";
+    this->wordList["MIRODENII"]="INGREDIENTE DE NATURA VEGETLA, AROMATE SAU PICANTE";
+    this->wordList["ISCALI"]="A SCRIE NUMELE PE TEXTUL UNUI ACT OFICIAL";
+    this->wordList["SUBORDONAT"]="CARE SE AFLA SUB AUTORITATEA SAUCONDUCEREA CUIVA";
+    ///LVL3
+    this->wordList["INGRAMADIT"]="CARE ESTE ADUNAT LAOLALTA IN NUMAR PREA MARE";
+    this->wordList["CONJUNCTIE"]="PARTE DE VORBIRE CARE LEAGA 2 PROPOZITII SAU DOUA CUVINTE CU ACELASI ROL";
+    this->wordList["RESPIRATIE"]="PRIMUL TIMP AL RESPIRATIEI";
+    this->wordList["COMEDIANT"]="ACTOR SAU ACTRITA DE CIRC, DE BALCI";
+    this->wordList["ONOMATOPEE"]="CUVANT CARE, PRIN ELEMENTELE LUI SONORE IMITA UN SUNET SAU ZGOMOT";
+
+
+    if (!font.loadFromFile("arial.ttf")) { std::cout << "EROARE LA INCARACREA FONTULUI";
+        throw eroare_font();
+    }
+
+
+    this->sendButton = SendAnswer(600,400,150,50, this->font, "Send Answer");
+
+    this->shape.setPosition(sf::Vector2f(160, 50));
+    this->shape.setSize(sf::Vector2f(480, 100));
+    this->shape.setOutlineColor(sf::Color::Black);
+    this->shape.setOutlineThickness(3);
+    this->shape.setFillColor(sf::Color::Transparent);
 }
