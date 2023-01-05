@@ -70,10 +70,11 @@ void PlayGame::checkInputWord( std::string& index) {
 }
 
 
-
+/*
 [[maybe_unused]] PlayGame& PlayGame::getGame() {
     return *this;
 }
+ */
 
 PlayGame::PlayGame(const std::shared_ptr<Player>& player) {
     this->windowPlayGame.create(sf::VideoMode(800, 600), "PlayGame");

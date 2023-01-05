@@ -58,7 +58,7 @@ public:
     ~PlayGame();
     friend void swap(PlayGame& playGame1, PlayGame& playGame2);
     void checkInputWord( std::string& index);
-    [[maybe_unused]]PlayGame& getGame();
+    //[[maybe_unused]]PlayGame& getGame();
     void draw(sf::RenderTarget* target);
 
 
