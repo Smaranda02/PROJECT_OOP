@@ -23,7 +23,7 @@ public:
     Player (std::string& name_, std::string& surname_) ;
     std::string get_name();
     std::string get_surname();
-    [[nodiscard]] int get_level() const;
+    [[nodiscard]] virtual int get_level() const;
 
     ///cele 2 functii virtuale pure
     virtual void set_money()=0;

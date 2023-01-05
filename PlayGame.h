@@ -16,20 +16,38 @@
 #include "Intermediate.h"
 #include "Advanced.h"
 #include "PlayerInput.h"
+#include <queue>
+
 class PlayGame {
 private:
+
+     struct definition{
+        std::string key;
+        std::string value;
+    };
+
     sf::RenderWindow windowPlayGame;
     sf::Event event{};
     sf::Text text;
     sf::Font font;
+    int sendPressed=0;
     sf::RectangleShape shape;
+    sf::RectangleShape guessBox;
     //std::string currentWord;
     std::map<std::string, std::string> wordList;
     SendAnswer sendButton;
     sf::Vector2i mousePosition;
+    PlayerInput* inputWord;
+    sf::Text wordGuessed;
+    sf::Text wordDef;
+    std::shared_ptr<Player> playerInGame =nullptr ;
+    std::queue<definition> queue;
 
 public:
     PlayGame();
+
+    [[maybe_unused]] PlayGame(const PlayGame& other);
+    PlayGame& operator=(PlayGame other);
     explicit PlayGame(const std::shared_ptr <Player>& player);
     void updateSFMLEvents();
     void render();
@@ -37,6 +55,13 @@ public:
     //void draw(sf::RenderTarget* target);
     void updateMousePosition();
     sf::RenderWindow& getWindow();
+    ~PlayGame();
+    friend void swap(PlayGame& playGame1, PlayGame& playGame2);
+    void checkInputWord( std::string& index);
+    [[maybe_unused]]PlayGame& getGame();
+    void draw(sf::RenderTarget* target);
+
+
 };
 
 

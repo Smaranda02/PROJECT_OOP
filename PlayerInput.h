@@ -35,7 +35,7 @@ private:
             if(text.str().length() > 0)
                 deleteLastChar();
         }
-        textbox.setString((text.str() + "_"));
+        textbox.setString((text.str()));
     }
 
 
@@ -61,7 +61,6 @@ public:
     std::string& get_text();
     void setLimit(bool ToF, int lim);
     void setSelected(bool sel);
-    //std::string getText();
     void drawTo(sf::RenderWindow &window);
     void typedOn(sf::Event input);
 

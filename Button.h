@@ -29,7 +29,7 @@ public:
     Button(float x,float y, float width, float height, sf::Font& font, const std::string& text);
     virtual ~Button();
     void render(sf::RenderTarget *target);
-    virtual void update( sf::Vector2f mousePos)=0;
+    virtual int update( sf::Vector2f mousePos)=0;
     virtual std::shared_ptr<Button> clone() const = 0;
     friend std::ostream& operator<<(std::ostream& os, const Button& button) ;
     static void incrementPressed();

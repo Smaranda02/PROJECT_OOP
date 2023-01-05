@@ -4,6 +4,7 @@
 
 #include "PlayerInput.h"
 #include "Exceptions.h"
+//#include "utility" //pentru swap
 
 
 PlayerInput::PlayerInput(const PlayerInput &other) : textbox{other.textbox} ,
@@ -60,13 +61,6 @@ void PlayerInput::setSelected(bool sel) {
      }
 }
 
-
-/*
-std::string PlayerInput::getText() {
-    return text.str();
-}
-*/
-
 void PlayerInput::typedOn(sf::Event input)
 {
     if(isSelected) {
@@ -99,4 +93,7 @@ PlayerInput::~PlayerInput() { std::cout<<"Destructor for PlayerInput called"; }
 
 PlayerInput::PlayerInput() {hasLimit=false; std::cout<<"Constructor called for PlayerInput";}
 
-std::string& PlayerInput::get_text() {return (std::string &) textbox.getString(); }
+ std::string& PlayerInput::get_text() {
+    std::cout<< textbox.getString().toAnsiString();
+    return (std::string &) textbox.getString();
+}

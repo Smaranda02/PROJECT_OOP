@@ -5,6 +5,10 @@
 #include "Beginner.h"
 
 
+int Beginner::get_level() const {
+    return level;
+}
+
 std::shared_ptr<Player> Beginner::clone() const  {
     return std::make_shared<Beginner>(*this);
 }

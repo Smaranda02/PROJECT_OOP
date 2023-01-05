@@ -10,15 +10,13 @@
 class SendAnswer : public Button {
 
     using Button::Button;
-    std::shared_ptr<Player> playerInGame =nullptr ;
+
 
 
 public:
     SendAnswer()=default;
-    //SendAnswer(Player* player);
-    SendAnswer(float x, float y, float width, float height, sf::Font& font, const std::string& text, const std::shared_ptr<Player>& player);
     SendAnswer(float x, float y, float width, float height, sf::Font& font, const std::string& text);
-    void update(sf::Vector2f mousePos) override;
+    int update(sf::Vector2f mousePos) override;
     std::shared_ptr<Button> clone() const override;
 
 };

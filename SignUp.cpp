@@ -62,9 +62,28 @@ SignUp::SignUp() {
 
 
     this->nume->setFont(font);
-    this->nume->setPosition(sf::Vector2f(100, 200));
+    this->nume->setPosition(sf::Vector2f(100, 300));
     this->prenume->setFont(font);
-    this->prenume->setPosition(sf::Vector2f(100, 300));
+    this->prenume->setPosition(sf::Vector2f(100, 200));
+
+
+
+    textPrenume.setFont(font);
+    textPrenume.setOutlineColor(sf::Color::Black);
+    textPrenume.setOutlineThickness(1.f);
+    textPrenume.setFillColor(sf::Color::White);
+    textPrenume.setString("Name");
+    textPrenume.setPosition(sf::Vector2f(25, 200));
+    textPrenume.setCharacterSize(18); // in pixels, not points!
+
+
+    textNume.setFont(font);
+    textNume.setOutlineColor(sf::Color::Black);
+    textNume.setOutlineThickness(1.f);
+    textNume.setFillColor(sf::Color::White);
+    textNume.setString("Surname");
+    textNume.setPosition(sf::Vector2f(25, 300));
+    textNume.setCharacterSize(18); // in pixels, not points!
 
 }
 
@@ -97,6 +116,7 @@ void SignUp::SFMLevents() {
                 this->windowSignUp->close();
             }
             if (event.type == sf::Event::KeyPressed) {
+                std::cout << "Received key ";
                 if (event.key.code == sf::Keyboard::Escape)
                     this->windowSignUp->close();
             }
@@ -106,12 +126,12 @@ void SignUp::SFMLevents() {
             {
                 if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
                     std::cout<<"OK";
-                    this->nume->setSelected(true);
+                    this->prenume->setSelected(true);
                     }
                 if(event.type == sf::Event::TextEntered)
-                    nume->typedOn(event);
+                    prenume->typedOn(event);
 
-                this->prenume->setSelected(false);
+                this->nume->setSelected(false);
             }
 
 
@@ -119,13 +139,13 @@ void SignUp::SFMLevents() {
             {
                 if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
                     std::cout<<"OK";
-                    this->prenume->setSelected(true);
+                    this->nume->setSelected(true);
                 }
 
                 if(event.type == sf::Event::TextEntered)
-                    prenume->typedOn(event);
+                    nume->typedOn(event);
 
-                this->nume->setSelected(false);
+                this->prenume->setSelected(false);
 
             }
 
@@ -146,11 +166,21 @@ void SignUp:: render() {
 
     sf::RenderTarget* target = this->windowSignUp;
     draw(target);
+    this->windowSignUp->draw(textPrenume);
+    this->windowSignUp->draw(textNume);
     this->playButton.render(target);
     this->submitButton.render(target);
     this->windowSignUp->display();
 
 }
+
+
+
+void SignUp::draw(sf::RenderTarget *target) {
+    target->draw(this->boxName);
+    target->draw(this->boxSurname);
+}
+
 
 SignUp::~SignUp(){
     delete this->nume;
@@ -159,7 +189,7 @@ SignUp::~SignUp(){
 
 
 
-[[maybe_unused]] SignUp::SignUp(const SignUp &other): font{other.font},mousePosition{other.mousePosition},
+[[maybe_unused]] SignUp::SignUp(const SignUp &other): textPrenume{other.textPrenume}, textNume{other.textNume}, font{other.font},mousePosition{other.mousePosition},
                                                       event{other.event},  playButton{other.playButton},
                                                       submitButton{other.submitButton} {
 
@@ -187,7 +217,6 @@ void swap(SignUp& signUp1, SignUp& signUp2)
     swap(signUp1.playButton,signUp2.playButton);
     swap(signUp1.boxSurname,signUp2.boxSurname);
     swap(signUp1.boxName,signUp2.boxName);
-    swap(signUp1.event,signUp2.event);
 
 }
 
@@ -199,11 +228,6 @@ SignUp& SignUp::operator=(SignUp other) {
 
 }
 
-
-void SignUp::draw(sf::RenderTarget *target) {
-    target->draw(this->boxName);
-    target->draw(this->boxSurname);
-}
 
 
 void SignUp::checkButtonState() {
@@ -243,9 +267,11 @@ void SignUp::checkButtonState() {
 
        if(gasit==0)
        {
+           prenume->get_text();
+           nume->get_text();
            std::shared_ptr<Beginner> be = std::make_shared<Beginner>(this->prenume->get_text(), this->nume->get_text());
            this->players.push_back(std::shared_ptr<Beginner>(be));
-           std::cout<< players.back()->get_name()<<" "<<players.back()->get_surname();
+          // std::cout<< players.back()->get_name()<<" "<<players.back()->get_surname();
 
        }
 

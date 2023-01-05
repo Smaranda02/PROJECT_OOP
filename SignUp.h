@@ -18,6 +18,8 @@
 class SignUp {
 
 private:
+    sf::Text textPrenume;
+    sf::Text textNume;
     sf::Font font;
     bool pressedOnce=false;
     sf::Vector2i mousePosition;

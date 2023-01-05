@@ -8,6 +8,10 @@ std::shared_ptr<Player> Intermediate:: clone() const  {
 return std::make_shared<Intermediate>(*this);
 }
 
+ int Intermediate::get_level() const {
+    return level;
+}
+
 
 void Intermediate::updatePlayer(){
     ///if(answer == correct)

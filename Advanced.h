@@ -17,6 +17,8 @@ public:
     void set_money() override;
     void increment_score() override;
     void updatePlayer() override;
+    [[nodiscard]] int get_level() const override;
+
 
 
 };

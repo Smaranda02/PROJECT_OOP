@@ -17,7 +17,7 @@ std::shared_ptr<Button> SubmitButton::clone() const {return std::make_shared<Sub
 SubmitButton::SubmitButton(Button& button) : Button(button) {}
 
 
-void SubmitButton::update(const sf::Vector2f mousePos)
+int SubmitButton::update(const sf::Vector2f mousePos)
 {
     this->shape.setFillColor(this->idleColor);
 
@@ -32,4 +32,5 @@ void SubmitButton::update(const sf::Vector2f mousePos)
         }
 
     }
+    return 0;
 }

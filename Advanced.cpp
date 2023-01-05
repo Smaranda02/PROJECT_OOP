@@ -8,6 +8,9 @@ std::shared_ptr<Player> Advanced::clone() const  {
 return std::make_shared<Advanced>(*this);
 }
 
+int Advanced::get_level() const {
+    return level;
+}
 
 
 void Advanced::updatePlayer(){
