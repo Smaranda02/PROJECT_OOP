@@ -4,6 +4,8 @@
 
 #include "Advanced.h"
 
+#include <utility>
+
 std::shared_ptr<Player> Advanced::clone() const  {
 return std::make_shared<Advanced>(*this);
 }
@@ -22,7 +24,7 @@ void Advanced::updatePlayer(){
 
 
 
-Advanced::Advanced(std::string& name_, std::string& surname_) : Player(name_, surname_){
+Advanced::Advanced(std::string name_, std::string surname_) : Player(std::move(name_), std::move(surname_)){
     this->level = 3 ;
 }
 

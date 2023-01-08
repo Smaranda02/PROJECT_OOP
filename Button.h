@@ -7,7 +7,7 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <memory>
-#include "iostream"
+#include <iostream>
 #include "Rectangle.h"
 
 class Button {
@@ -27,7 +27,7 @@ public:
     Button()=default;
     Button& operator=(const Button& other)=default;
     Button(float x,float y, float width, float height, sf::Font& font, const std::string& text);
-    virtual ~Button();
+    virtual ~Button()=default;
     void render(sf::RenderTarget *target);
     virtual int update( sf::Vector2f mousePos)=0;
     virtual std::shared_ptr<Button> clone() const = 0;

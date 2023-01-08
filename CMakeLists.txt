@@ -64,6 +64,7 @@ endfunction()
 FetchContent_MakeAvailable(SFML)
 
 sfml_set_custom_stdlib(sfml-system)
+sfml_set_custom_stdlib(sfml-audio)
 sfml_set_custom_stdlib(sfml-window)
 sfml_set_custom_stdlib(sfml-graphics)
 
@@ -147,11 +148,11 @@ endif()
 #target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ext/<SomeHppLib>/include)
 target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ${SFML_SOURCE_DIR}/include)
 target_link_directories(${PROJECT_NAME} PRIVATE ${SFML_BINARY_DIR}/lib)
-target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-system)
+target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-audio sfml-system)
 
 ###############################################################################
 
 # copy binaries to bin folder; these are uploaded as artifacts on each release
 install(TARGETS ${PROJECT_NAME} DESTINATION bin)
 # install(DIRECTORY some_dir1 some_dir2 DESTINATION bin)
-install(FILES arial.ttf Jocul-Cuvintelor-Meniu.jpg DESTINATION bin)
+install(FILES arial.ttf Jocul-Cuvintelor-Meniu.jpg Sound.wav DESTINATION bin)

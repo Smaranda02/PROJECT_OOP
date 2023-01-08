@@ -8,7 +8,7 @@
 #include "iostream"
 #include "SFML/Graphics.hpp"
 #include <sstream>
-#include "string"
+#include <string>
 
 #define DELETE_KEY 8
 #define ENTER_KEY 13
@@ -53,12 +53,13 @@ private:
 
 public:
     PlayerInput();
-    ~PlayerInput();
+    ~PlayerInput()=default;
     PlayerInput(int size, sf::Color color, bool sel);
     PlayerInput(const PlayerInput& other);
     void setFont(sf::Font &font);
     void setPosition(sf::Vector2f pos);
-    std::string& get_text();
+    std::string get_text();
+    void deleteAll();
     void setLimit(bool ToF, int lim);
     void setSelected(bool sel);
     void drawTo(sf::RenderWindow &window);

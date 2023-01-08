@@ -9,6 +9,10 @@ void SubmitButton::afisare(std::ostream& os) const{
     os << "\t" << "stare apasare buton " << isPressed;
 }
 
+void SubmitButton::set_ButtonState() {
+    isPressed=false;
+}
+
 
 bool SubmitButton::get_buttonState() const { return isPressed; }
 

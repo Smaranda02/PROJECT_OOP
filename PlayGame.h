@@ -4,7 +4,8 @@
 
 #ifndef OOP_PLAYGAME_H
 #define OOP_PLAYGAME_H
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <map>
 #include "SendAnswer.h"
 //#include "Player/Player.h"
@@ -40,8 +41,10 @@ private:
     PlayerInput* inputWord;
     sf::Text wordGuessed;
     sf::Text wordDef;
-    std::shared_ptr<Player> playerInGame =nullptr ;
+    std::shared_ptr<Player> playerInGame = nullptr ;
     std::queue<definition> queue;
+    sf::SoundBuffer soundBuffer;
+    sf::Sound sound;
 
 public:
     PlayGame();

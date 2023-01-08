@@ -3,7 +3,7 @@
 //
 
 #include "Rules.h"
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
 
 Rules::Rules() {
 

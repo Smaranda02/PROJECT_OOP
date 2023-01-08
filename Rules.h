@@ -6,7 +6,7 @@
 #define OOP_RULES_H
 
 #include "SFML/Graphics.hpp"
-#include "iostream"
+#include <iostream>
 
 
 class Rules {

@@ -3,7 +3,7 @@
 //
 
 #include "Button.h"
-#include "iostream"
+#include <iostream>
 
 int Button::pressedNumber=0;
 
@@ -56,5 +56,4 @@ Button::Button(float x, float y, float width, float height, sf::Font& font, cons
 }
 
 
-Button::~Button() { std::cout<<"Destructor for Button called"; }
 

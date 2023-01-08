@@ -17,6 +17,7 @@ public:
     int update( sf::Vector2f mousePos) override;
     std::shared_ptr<Button> clone() const override;
     SubmitButton& operator=(const SubmitButton& other)=default;
+    void set_ButtonState();
 
 protected:
     void afisare(std::ostream& os) const override;

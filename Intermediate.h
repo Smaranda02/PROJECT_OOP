@@ -12,7 +12,7 @@ private:
     int incrementScore=20;
 
 public:
-    Intermediate(std::string& name_, std::string& surname_);
+    Intermediate(std::string name_, std::string surname_);
     [[nodiscard]] std::shared_ptr<Player> clone() const override;
     void set_money() override;
     void increment_score() override;

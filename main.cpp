@@ -16,9 +16,8 @@ int main() {
    auto& game=Game::get_game();
    game.start_game();
 
-   //constr copiere sign up
-   //schimb tipul returnat in sign up inde updataez lista de player ca sa scap de functia aia statica
-
+  //apas pe enter=send answer
+  //FAC UPDATE URI cu sound in constructori
 
 
 

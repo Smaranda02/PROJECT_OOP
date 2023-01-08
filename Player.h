@@ -20,7 +20,7 @@ protected:
     int money=0;
 public:
     Player()=default;
-    Player (std::string& name_, std::string& surname_) ;
+    Player (std::string   name_, std::string  surname_) ;
     std::string get_name();
     std::string get_surname();
     [[nodiscard]] virtual int get_level() const;

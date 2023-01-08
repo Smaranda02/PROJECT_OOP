@@ -4,6 +4,10 @@
 
 #include "Player.h"
 
+#include <utility>
+
+//#include <utility>
+
 /*
 [[maybe_unused]] Player::Player (const Player &other) : name{other.name}, surname{other.surname}, score{other.score} {
 }
@@ -26,7 +30,7 @@ Player :: ~Player() {std::cout<<"Next player aka Destructor Player called";}
 
 Player& Player::operator=(const Player &p) = default;
 
-Player::Player (std::string& name_, std::string& surname_) : name{name_}, surname{std::move(surname_)} {
+Player::Player (std::string   name_, std::string  surname_) : name{std::move(name_)}, surname{std::move(surname_)} {
     std::cout<<this->name<<" "<<this->surname;
 }
 

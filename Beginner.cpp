@@ -23,7 +23,7 @@ void Beginner::updatePlayer(){
 }
 
 
-Beginner::Beginner(std::string& name_, std::string& surname_) : Player(name_, surname_){
+Beginner::Beginner(const std::string& name_, const std::string& surname_) : Player(name_, surname_){
     this->level=1;
 }
 

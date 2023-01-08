@@ -7,7 +7,7 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <memory>
-#include "iostream"
+#include <iostream>
 #include "Player.h"
 
 class StartGameButton {
@@ -25,7 +25,7 @@ public:
     StartGameButton(float x,float y, float width, float height, sf::Font& font, const std::string& text);
     ~StartGameButton();
     void render(sf::RenderTarget *target);
-    void update( sf::Vector2f mousePos, const std::shared_ptr<Player>& player, bool playersEmpty);
+    int update( sf::Vector2f mousePos, const std::shared_ptr<Player>& player, bool playersEmpty);
     StartGameButton(const StartGameButton& other);
 
 

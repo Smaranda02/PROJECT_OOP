@@ -4,7 +4,7 @@
 
 #include "Game.h"
 #include "SignUp.h"
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
 #include "Exceptions.h"
 
 
@@ -48,7 +48,7 @@ void Game::updateSFMLEvents() {
                       << "New height: " << this->windowMenu->getSize().y << '\n';
         }
         if (event.type == sf::Event::KeyPressed)
-        { std::cout << "Received key ";
+        {
             if(event.key.code == sf::Keyboard::Escape)
                 this->windowMenu->close();
         }
@@ -57,18 +57,13 @@ void Game::updateSFMLEvents() {
         {
             if (event.key.code == sf::Keyboard::Up)
             {
-                std::cout<<"Up key was pressed\n";
                 menu->MoveUp();
-                //if (event.key.code == sf::Keyboard::Enter)
-                //sf::RenderWindow SignUp(sf::VideoMode(960, 720), "SIGNUP");
+
             }
 
             if (event.key.code == sf::Keyboard::Down)
             {
-                std::cout<<"Down key was pressed\n";
                 menu->MoveDown();
-                //if (event.key.code == sf::Keyboard::Enter)
-                //sf::RenderWindow Rules(sf::VideoMode(960, 720), "RULES");
             }
 
             if (event.key.code == sf::Keyboard::Enter)

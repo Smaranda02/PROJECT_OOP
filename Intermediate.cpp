@@ -4,6 +4,8 @@
 
 #include "Intermediate.h"
 
+#include <utility>
+
 std::shared_ptr<Player> Intermediate:: clone() const  {
 return std::make_shared<Intermediate>(*this);
 }
@@ -20,7 +22,7 @@ void Intermediate::updatePlayer(){
     std::cout<<"The player has now "<<money<<" money \n";
 }
 
-Intermediate::Intermediate(std::string& name_, std::string& surname_) : Player(name_, surname_){
+Intermediate::Intermediate(std::string name_, std::string surname_) : Player(std::move(name_), std::move(surname_)){
     this->level=2;
 }
 

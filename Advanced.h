@@ -12,7 +12,7 @@ private:
     int incrementScore=30;
 
 public:
-    Advanced(std::string& name_, std::string& surname_);
+    Advanced(std::string name_, std::string surname_);
     [[nodiscard]] std::shared_ptr<Player> clone() const override ;
     void set_money() override;
     void increment_score() override;

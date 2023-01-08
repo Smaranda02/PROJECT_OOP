@@ -89,11 +89,15 @@ void PlayerInput::drawTo(sf::RenderWindow &window){
 
 
 
-PlayerInput::~PlayerInput() { std::cout<<"Destructor for PlayerInput called"; }
 
-PlayerInput::PlayerInput() {hasLimit=false; std::cout<<"Constructor called for PlayerInput";}
+PlayerInput::PlayerInput() {hasLimit=false; }
 
- std::string& PlayerInput::get_text() {
-    std::cout<< textbox.getString().toAnsiString();
-    return (std::string &) textbox.getString();
+ std::string PlayerInput::get_text() {
+    return  textbox.getString();
+}
+
+void PlayerInput::deleteAll() {
+
+    text.str("");
+    textbox.setString(text.str());
 }
