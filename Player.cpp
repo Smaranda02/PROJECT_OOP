@@ -27,9 +27,6 @@ std::ostream & operator << (std::ostream &out, const Player &p)
 
 Player :: ~Player() {std::cout<<"Next player aka Destructor Player called";}
 
-
-Player& Player::operator=(const Player &p) = default;
-
 Player::Player (std::string   name_, std::string  surname_) : name{std::move(name_)}, surname{std::move(surname_)} {
     std::cout<<this->name<<" "<<this->surname;
 }

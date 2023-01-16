@@ -5,6 +5,8 @@
 #include "PlayGame.h"
 #include <iostream>
 #include "Exceptions.h"
+#include <fstream>
+#include "Beginner.h"
 
 
 std::string toUpperCase(std::string s)
@@ -29,26 +31,27 @@ PlayGame::PlayGame(const std::shared_ptr<Player>& player) {
     this->windowPlayGame.setVerticalSyncEnabled(true);
     this->windowPlayGame.setFramerateLimit(60);
 
-    ///lvl1
-    this->wordList["Avion"]="PLANOR CU MOTOR";
-    this->wordList["Ares"]="ZEUL RAZBOIULUI";
-    this->wordList["Barca"]="MIJLOC DE TRANSPORT PE APA";
-    this->wordList["CASA"] = "SINONIM CU LOCUINTA";
-    this->wordList["Masa"]="Obiect pe care se asaza chestii";
-    this->wordList["INEL"]="ACCESORIU PENTRU DEGET";
-    this->wordList["Ghiozdan"]="SINONIM CU RUCSAC";
-    ///lvl2
-    this->wordList["SPOVEDANIE"]="MARTURISIRE A GRESELILOR FACUTE";
-    this->wordList["ELICOPTER"]="DECOLEAZA SI ATEREIZEAZA FARA PISTA";
-    this->wordList["MIRODENII"]="INGREDIENTE DE NATURA VEGETLA, AROMATE SAU PICANTE";
-    this->wordList["ISCALI"]="A SCRIE NUMELE PE TEXTUL UNUI ACT OFICIAL";
-    this->wordList["SUBORDONAT"]="CARE SE AFLA SUB AUTORITATEA SAUCONDUCEREA CUIVA";
-    ///LVL3
-    this->wordList["INGRAMADIT"]="CARE ESTE ADUNAT LAOLALTA IN NUMAR PREA MARE";
-    this->wordList["CONJUNCTIE"]="PARTE DE VORBIRE CARE LEAGA 2 PROPOZITII";
-    this->wordList["INSPIRATIE"]="PRIMUL TIMP AL RESPIRATIEI";
-    this->wordList["COMEDIANT"]="ACTOR CARE JOACA IN PIESE AMUZANTE";
-    this->wordList["ONOMATOPEE"]="CUVANT CARE, PRIN ELEMENTELE LUI SONORE IMITA UN SUNET SAU ZGOMOT";
+    std::ifstream file;
+    file.open("wordList.txt");
+    std::string line;
+
+    while(file)
+    {
+        std::string key;
+        std::string value;
+        std::getline(file, line);
+        unsigned int size=line.length();
+        for(unsigned int i=0;i<size;i++)
+            if(line[i]==' ')
+            {
+                 key = line.substr(0,i);
+                 value = line.substr(i+1, size-1);
+                break;
+            }
+
+        this->wordList[key]=value;
+    }
+
 
 
     if (!font.loadFromFile("arial.ttf")) { std::cout << "EROARE LA INCARACREA FONTULUI";
@@ -69,7 +72,7 @@ PlayGame::PlayGame(const std::shared_ptr<Player>& player) {
 
     if(playerInGame->get_level()==1)
     {
-            int i=0;
+            unsigned int i=0;
             for(const auto &[key,value] : wordList) {
                 definition word;
                 word.key=key;
@@ -77,38 +80,38 @@ PlayGame::PlayGame(const std::shared_ptr<Player>& player) {
                 queue.push(word);
                 i++;
                 std::cout<<word.key<<std::endl;
-                if(i==5) break;
+                if(i==wordList.size()/3) break;
             }
     }
 
     else if(playerInGame->get_level()==2)
     {
-        int i=0;
+        unsigned int i=0;
         for(const auto &[key,value] : wordList) {
-            if(i>=5) {
+            if(i>=wordList.size()/3) {
                 definition word;
                 word.key = key;
                 word.value = value;
                 queue.push(word);
                 i++;
                 std::cout << word.key << std::endl;
-                if(i==10) break;
+                if(i==wordList.size()*2/3) break;
             }
             else i++;
         }
     }
 
     else {
-        int i=0;
+        unsigned int i=0;
         for(const auto &[key,value] : wordList) {
-            if(i>=10) {
+            if(i>=wordList.size()*2/3) {
                 definition word;
                 word.key = key;
                 word.value = value;
                 queue.push(word);
                 i++;
                 std::cout << word.key << std::endl;
-                if(i==15) break;
+                if(i==wordList.size()) break;
             }
             else i++;
         }
@@ -218,7 +221,54 @@ void PlayGame::updateSFMLEvents() {
             if(sendPressed==4) {
                 queue.pop();
                 if(queue.empty())
+                {
+                    if(wordsGuessed==0)
+                    {
+                        auto playingNow=std::dynamic_pointer_cast<Beginner>(playerInGame);
+
+                        if(playingNow) {
+                            std::cout << "Good cast\n";
+                            std::cout<<playingNow->get_name()<<std::endl;
+
+                        }
+
+                        else std::cout<<"Bad cast\n";
+
+                        sf::RenderWindow sadPopUp(sf::VideoMode(600, 130), "Sad...");
+                        sf::Event event3{};
+                        sf::Text sad;
+                        sad.setFont(font);
+                        sad.setOutlineColor(sf::Color::Black);
+                        sad.setOutlineThickness(3.f);
+                        sad.setFillColor(sf::Color::Red);
+
+                        sad.setString(playingNow->sadMessage());
+                        sad.setPosition(sf::Vector2f(static_cast<float>(sadPopUp.getSize().x / 10.0),
+                                                           static_cast<float>(sadPopUp.getSize().y / 2.0)));
+
+
+                        sad.setCharacterSize(25);
+
+                        while(sadPopUp.isOpen()) {
+                            while(sadPopUp.pollEvent(event3))
+                            {
+                                if (event3.type == sf::Event::Closed)
+                                    sadPopUp.close();
+
+                                if (event3.type == sf::Event::KeyPressed) {
+                                    if (event3.key.code == sf::Keyboard::Escape)
+                                        sadPopUp.close();
+                                }
+                            }
+
+                            sadPopUp.clear();
+                            sadPopUp.draw(sad);
+                            sadPopUp.display();
+                        }
+
+                    }
                     windowPlayGame.close();
+                }
                 sendPressed=0;
             }
         }
@@ -246,8 +296,18 @@ void PlayGame::updateSFMLEvents() {
 
         if(this->guessBox.getGlobalBounds().contains(static_cast<sf::Vector2f>(this->mousePosition)))
         {
+
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
                 std::cout<<"OK";
+
+                auto playingNow=std::dynamic_pointer_cast<Beginner>(playerInGame);
+                if(playingNow) {
+                    std::cout << "Good cast\n";
+                    std::cout<<playingNow->get_name()<<std::endl;
+
+                }
+                else std::cout<<"Bad cast\n";
+
                 this->inputWord->setSelected(true);
             }
             if(event.type == sf::Event::TextEntered) {
@@ -325,28 +385,26 @@ PlayGame::PlayGame() {
     this->windowPlayGame.setVerticalSyncEnabled(true);
     this->windowPlayGame.setFramerateLimit(60);
 
-    ///lvl1
-    this->wordList["Avion"]="PLANOR CU MOTOR";
-    this->wordList["Ares"]="ZEUL RAZBOIULUI";
-    this->wordList["Barca"]="MIJLOC DE TRANSPORT PE APA";
-    this->wordList["CASA"] = "SINONIM CU LOCUINTA";
-    this->wordList["Masa"]="Obiect pe care se asaza chestii";
-    this->wordList["INEL"]="ACCESORIU PENTRU DEGET";
-    this->wordList["Ghiozdan"]="SINONIM CU RUCSAC";
+    std::ifstream file;
+    file.open("wordList.txt");
+    std::string line;
 
-    ///lvl2
-    this->wordList["SPOVEDANIE"]="MARTURISIRE A GRESELILOR FACUTE";
-    this->wordList["ELICOPTER"]="DECOLEAZA SI ATEREIZEAZA FARA PISTA";
-    this->wordList["MIRODENII"]="INGREDIENTE DE NATURA VEGETLA, AROMATE SAU PICANTE";
-    this->wordList["ISCALI"]="A SCRIE NUMELE PE TEXTUL UNUI ACT OFICIAL";
-    this->wordList["SUBORDONAT"]="CARE SE AFLA SUB AUTORITATEA SAUCONDUCEREA CUIVA";
+    while(file)
+    {
+        std::string key;
+        std::string value;
+        std::getline(file, line);
+        unsigned int size=line.length();
+        for(unsigned int i=0;i<size;i++)
+            if(line[i]==' ')
+            {
+                key = line.substr(0,i);
+                value = line.substr(i+1, size-1);
+                break;
+            }
 
-    ///LVL3
-    this->wordList["INGRAMADIT"]="CARE ESTE ADUNAT LAOLALTA IN NUMAR PREA MARE";
-    this->wordList["CONJUNCTIE"]="PARTE DE VORBIRE CARE LEAGA 2 PROPOZITII";
-    this->wordList["INSPIRATIE"]="PRIMUL TIMP AL RESPIRATIEI";
-    this->wordList["COMEDIANT"]="ACTOR SAU ACTRITA DE CIRC, DE BALCI";
-    this->wordList["ONOMATOPEE"]="CUVANT CARE, PRIN ELEMENTELE LUI SONORE IMITA UN SUNET SAU ZGOMOT";
+        this->wordList[key]=value;
+    }
 
 
     if (!font.loadFromFile("arial.ttf")) { std::cout << "EROARE LA INCARACREA FONTULUI";
@@ -407,12 +465,13 @@ PlayGame::~PlayGame() {
 
 
 
-void PlayGame::checkInputWord( std::string& index) {
+void PlayGame::checkInputWord( const std::string& index) {
     std::cout<<"Checking the word guessed\n";
 
     if(toUpperCase(inputWord->get_text()) == toUpperCase(index))
     {
         std::cout<<"THE WORD IS CORRECT\n";
+        wordsGuessed++;
         sound.play();
         inputWord->deleteAll();
         if (this->playerInGame != nullptr)
@@ -457,6 +516,7 @@ void PlayGame::checkInputWord( std::string& index) {
             errorPopUp.draw(error);
             errorPopUp.display();
         }
+
     }
 
 }

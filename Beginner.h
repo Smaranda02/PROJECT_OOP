@@ -17,6 +17,7 @@ public:
     void increment_score() override;
     void updatePlayer() override;
     [[nodiscard]] int get_level() const override;
+    [[nodiscard]] std::string sadMessage() const;
 
 };
 

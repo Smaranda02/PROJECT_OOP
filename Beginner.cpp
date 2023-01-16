@@ -4,6 +4,12 @@
 
 #include "Beginner.h"
 
+std::string Beginner::sadMessage() const{
+    std::string s1=" ";
+    std:: string s2 = "You played like a beginner...";
+    std::string final = this->surname + s1 + this->name  + s1 + s2;
+    return final;
+}
 
 int Beginner::get_level() const {
     return level;

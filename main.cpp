@@ -16,8 +16,10 @@ int main() {
    auto& game=Game::get_game();
    game.start_game();
 
+   //const id in player
   //apas pe enter=send answer
   //FAC UPDATE URI cu sound in constructori
+  //cum modific acele define uri
 
 
 

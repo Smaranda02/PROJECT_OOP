@@ -40,6 +40,7 @@ private:
     sf::Vector2i mousePosition;
     PlayerInput* inputWord;
     sf::Text wordGuessed;
+    int wordsGuessed=0;
     sf::Text wordDef;
     std::shared_ptr<Player> playerInGame = nullptr ;
     std::queue<definition> queue;
@@ -60,7 +61,7 @@ public:
     sf::RenderWindow& getWindow();
     ~PlayGame();
     friend void swap(PlayGame& playGame1, PlayGame& playGame2);
-    void checkInputWord( std::string& index);
+    void checkInputWord(const  std::string& index);
     //[[maybe_unused]]PlayGame& getGame();
     void draw(sf::RenderTarget* target);
 

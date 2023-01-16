@@ -15,6 +15,10 @@
 #include <utility> //pentru swap
 #include "StartGameButton.h"
 
+
+template <class T>
+void f(T x);
+
 class SignUp {
 
 private:
@@ -52,5 +56,5 @@ public:
 };
 
 
-
+//#include "SignUp.cpp"
 #endif //OOP_SIGNUP_H

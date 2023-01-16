@@ -11,6 +11,7 @@
 #include <memory>  ///pentru std::shared_ptr<>
 
 
+
 class Player {
 protected:
     std::string name;
@@ -18,9 +19,11 @@ protected:
     int level=0;
     int score=0;
     int money=0;
+    std::string const id="Participant";
 public:
+
     Player()=default;
-    Player (std::string   name_, std::string  surname_) ;
+    Player (std::string  name_, std::string  surname_) ;
     std::string get_name();
     std::string get_surname();
     [[nodiscard]] virtual int get_level() const;
@@ -40,6 +43,7 @@ protected:
     Player& operator=(const Player &p);
     [[maybe_unused]] Player (const Player &other)=default;
 };
+
 
 
 #endif //OOP_PLAYER_H

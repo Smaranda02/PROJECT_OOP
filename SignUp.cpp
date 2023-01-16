@@ -22,6 +22,17 @@ std::vector<std::shared_ptr<Player>> SignUp::get_players(){
 }
 */
 
+/*
+template <class T>
+void f(T object){
+        std::shared_ptr<T>in = std::make_shared<T>(this->prenume->get_text(), this->nume->get_text());
+        tmp_players.push_back(std::shared_ptr<Intermediate>(in));
+        std::cout<< players.back()->get_name()<<" "<<players.back()->get_surname();
+
+    }
+*/
+
+
 PlayerInput& SignUp::get_name() {return *(this->prenume); }
 PlayerInput& SignUp::get_surname() {return *(this->nume); }
 
@@ -111,7 +122,7 @@ void SignUp::SFMLevents() {
             if(players.empty())
                 playersEmpty=true;
 
-            ///is StartGame is pressed
+            ///if StartGame is pressed
             if(this->playButton.update(static_cast<sf::Vector2f>(this->mousePosition), players.back(), playersEmpty))
             {
                 nume->deleteAll();
@@ -241,24 +252,22 @@ void SignUp::checkButtonState() {
     if(submitButton.get_buttonState() && !pressedOnce) {
 
         bool gasit=false;
-       for(auto& player : players)
+        auto tmp_players = players;
+
+        for(auto& player : players)
             if( player->get_name() == this->prenume->get_text() && player->get_surname()==this->nume->get_text()) {
                 gasit=true;
-                std::cout<<"TE CUNOSC DE UNDEVA\n";
-
 
                  if (player->get_level() == 1) {
-                     std::cout<<"NIVELUL E 1\n";
                      std::shared_ptr<Intermediate>in = std::make_shared<Intermediate>(this->prenume->get_text(), this->nume->get_text());
-                     this->players.push_back(std::shared_ptr<Intermediate>(in));
-                     //std::cout<< players.back()->get_name()<<" "<<players.back()->get_surname();
+                     tmp_players.push_back(std::shared_ptr<Intermediate>(in));
+                     std::cout<< players.back()->get_name()<<" "<<players.back()->get_surname();
                 }
 
                  else if (player->get_level() == 2) {
-                     std::cout<<"NIVELUL E 2\n";
                      std::shared_ptr<Advanced> ad = std::make_shared<Advanced>(this->prenume->get_text(), this->nume->get_text());
-                    this->players.push_back(std::shared_ptr<Advanced>(ad));
-                    //std::cout<< players.back()->get_name()<<" "<<players.back()->get_surname();
+                     tmp_players.push_back(std::shared_ptr<Advanced>(ad));
+                     std::cout<< players.back()->get_name()<<" "<<players.back()->get_surname();
                 }
 
 
@@ -266,14 +275,20 @@ void SignUp::checkButtonState() {
                 ///nu mai adaug si asta cred
                  else if (player->get_level() == 3) {
                      std::shared_ptr<Advanced> ad = std::make_shared<Advanced>(this->prenume->get_text(), this->nume->get_text());
-                     this->players.push_back(std::shared_ptr<Advanced>(ad));
-                     //std::cout<< players.back()->get_name()<<" "<<players.back()->get_surname();
+                     tmp_players.push_back(std::shared_ptr<Advanced>(ad));
+                     std::cout<< players.back()->get_name()<<" "<<players.back()->get_surname();
+
                  }
 
+                tmp_players.erase(std::remove(tmp_players.begin(), tmp_players.end(), player), tmp_players.end()); ///il sterg din vector si il reintroduc cu nivelul corect
 
-                players.erase(std::remove(players.begin(), players.end(), player), players.end()); ///il sterg din vector si il reintroduc cu nivelul corect
                 break;
             }
+        std::cout << "--------\n";
+        for(auto& player : tmp_players)
+            std::cout<< player->get_name()<<" "<<player->get_surname() << " " << player->get_level() << "\n";
+        std::cout << "--------\n";
+        players = tmp_players;
 
        if(gasit==0)
        {
