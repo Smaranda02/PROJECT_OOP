@@ -40,7 +40,7 @@ public:
     friend std::ostream & operator << (std::ostream &out, const Player &p);
 
 protected:
-    Player& operator=(const Player &p);
+    //Player& operator=(const Player &p);
     [[maybe_unused]] Player (const Player &other)=default;
 };
 

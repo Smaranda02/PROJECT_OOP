@@ -14,14 +14,15 @@
 #include "StartGameButton.h"
 #include <utility> //pentru swap
 #include "StartGameButton.h"
+#include "VectorTemplate.h"
 
-
-template <class T>
-void f(T x);
 
 class SignUp {
 
 private:
+
+    static const int maxPlayers=15;
+
     sf::Text textPrenume;
     sf::Text textNume;
     sf::Font font;
@@ -31,7 +32,8 @@ private:
     sf::Event event{};
     PlayerInput* nume;  //agregare
     PlayerInput* prenume;  //agregare
-    std::vector<std::shared_ptr<Player>> players;  //agregare
+    //std::vector<std::shared_ptr<Player>> players;  //agregare
+    VectorTemplate<Player> players;
     StartGameButton playButton;  //agregare
     SubmitButton submitButton;   //agregare
     sf::RectangleShape boxName;
@@ -40,6 +42,7 @@ private:
 
 public:
     SignUp();
+    bool checkMaxPlayers();
     void updateMousePosition();
     sf::RenderWindow* getWindow();
     SignUp& operator=(SignUp other);

@@ -9,12 +9,13 @@
 //#include "Player/Beginner.h"
 //#include "Player/Advanced.h"
 #include "Player.h"
-#include "Beginner.h"
-#include "Intermediate.h"
-#include "Advanced.h"
+//#include "Beginner.h"
+//#include "Intermediate.h"
+//#include "Advanced.h"
 #include "PlayerInput.h"
 //#include "TemplateNewPlayer.h"
 #include "StartGameButton.h"
+#include "Factory.h"
 
 /*
 std::vector<std::shared_ptr<Player>> SignUp::get_players(){
@@ -31,6 +32,14 @@ void f(T object){
 
     }
 */
+
+
+bool SignUp::checkMaxPlayers() {
+    if(players.getVector().size()<=maxPlayers)
+        return true;
+    return false;
+}
+
 
 
 PlayerInput& SignUp::get_name() {return *(this->prenume); }
@@ -119,11 +128,11 @@ void SignUp::SFMLevents() {
             this->submitButton.update(static_cast<sf::Vector2f>(this->mousePosition));
 
             bool playersEmpty=false;
-            if(players.empty())
+            if(players.getVector().empty())
                 playersEmpty=true;
 
             ///if StartGame is pressed
-            if(this->playButton.update(static_cast<sf::Vector2f>(this->mousePosition), players.back(), playersEmpty))
+            if(this->playButton.update(static_cast<sf::Vector2f>(this->mousePosition), players.getVector().back(), playersEmpty))
             {
                 nume->deleteAll();
                 prenume->deleteAll();
@@ -207,12 +216,11 @@ SignUp::~SignUp(){
 
 
 [[maybe_unused]] SignUp::SignUp(const SignUp &other): textPrenume{other.textPrenume}, textNume{other.textNume}, font{other.font},mousePosition{other.mousePosition},
-                                                      event{other.event},  playButton{other.playButton},
+                                                      event{other.event},playButton{other.playButton},
                                                       submitButton{other.submitButton} {
 
-    this->players = *new std::vector<std::shared_ptr<Player>>;
-    for(auto const &i: other.players)
-        this->players.push_back(i->clone());
+    this->players = *new VectorTemplate<Player>;
+    for (auto const &i: other.players.getVector()) { this->players.getVector().push_back(i->clone()); }
 
     windowSignUp=new sf::RenderWindow;
    nume = new PlayerInput(*other.nume);
@@ -253,50 +261,86 @@ void SignUp::checkButtonState() {
 
         bool gasit=false;
         auto tmp_players = players;
+        std::cout<<"tmp_players";
 
-        for(auto& player : players)
+        for(auto& player : players.getVector())
             if( player->get_name() == this->prenume->get_text() && player->get_surname()==this->nume->get_text()) {
                 gasit=true;
 
+
                  if (player->get_level() == 1) {
+                     /*
                      std::shared_ptr<Intermediate>in = std::make_shared<Intermediate>(this->prenume->get_text(), this->nume->get_text());
                      tmp_players.push_back(std::shared_ptr<Intermediate>(in));
-                     std::cout<< players.back()->get_name()<<" "<<players.back()->get_surname();
+                      */
+
+                     std::shared_ptr<Player> in= Factory::createPlayer(2, this->prenume->get_text(), this->nume->get_text());
+                     tmp_players.getVector().push_back(std::shared_ptr<Player>(in));
+
+                     std::cout<< players.getVector().back()->get_name()<<" "<<players.getVector().back()->get_surname();
                 }
 
                  else if (player->get_level() == 2) {
+                     /*
                      std::shared_ptr<Advanced> ad = std::make_shared<Advanced>(this->prenume->get_text(), this->nume->get_text());
                      tmp_players.push_back(std::shared_ptr<Advanced>(ad));
-                     std::cout<< players.back()->get_name()<<" "<<players.back()->get_surname();
+                      */
+
+                     std::shared_ptr<Player> ad= Factory::createPlayer(3, this->prenume->get_text(), this->nume->get_text());
+                     tmp_players.getVector().push_back(std::shared_ptr<Player>(ad));
+
+                     std::cout<< players.getVector().back()->get_name()<<" "<<players.getVector().back()->get_surname();
                 }
 
 
 
                 ///nu mai adaug si asta cred
                  else if (player->get_level() == 3) {
+
+                     /*
                      std::shared_ptr<Advanced> ad = std::make_shared<Advanced>(this->prenume->get_text(), this->nume->get_text());
                      tmp_players.push_back(std::shared_ptr<Advanced>(ad));
-                     std::cout<< players.back()->get_name()<<" "<<players.back()->get_surname();
+                      */
+
+                     std::shared_ptr<Player> ad= Factory::createPlayer(3, this->prenume->get_text(), this->nume->get_text());
+                     tmp_players.getVector().push_back(std::shared_ptr<Player>(ad));
+
+                     std::cout<< players.getVector().back()->get_name()<<" "<<players.getVector().back()->get_surname();
 
                  }
 
-                tmp_players.erase(std::remove(tmp_players.begin(), tmp_players.end(), player), tmp_players.end()); ///il sterg din vector si il reintroduc cu nivelul corect
+                tmp_players.getVector().erase(std::remove(tmp_players.getVector().begin(), tmp_players.getVector().end(), player), tmp_players.getVector().end()); ///il sterg din vector si il reintroduc cu nivelul corect
 
                 break;
             }
         std::cout << "--------\n";
-        for(auto& player : tmp_players)
+        for(auto& player : tmp_players.getVector())
             std::cout<< player->get_name()<<" "<<player->get_surname() << " " << player->get_level() << "\n";
         std::cout << "--------\n";
         players = tmp_players;
 
        if(gasit==0)
        {
-           prenume->get_text();
-           nume->get_text();
-           std::shared_ptr<Beginner> be = std::make_shared<Beginner>(this->prenume->get_text(), this->nume->get_text());
-           this->players.push_back(std::shared_ptr<Beginner>(be));
-           //std::cout<< players.back()->get_name()<<" "<<players.back()->get_surname()<<std::endl;
+           if(checkMaxPlayers()) {
+               prenume->get_text();
+               nume->get_text();
+
+               std::shared_ptr<Player> b= Factory::createPlayer(1, this->prenume->get_text(), this->nume->get_text());
+               this->players.getVector().push_back(std::shared_ptr<Player>(b));
+
+
+/*
+               std::shared_ptr<Beginner> be = std::make_shared<Beginner>(this->prenume->get_text(),
+                                                                         this->nume->get_text());
+               this->players.push_back(std::shared_ptr<Beginner>(be));
+*/
+
+
+
+               //std::cout<< players.back()->get_name()<<" "<<players.back()->get_surname()<<std::endl;
+           }
+
+           else throw eroare_jucatori();
 
        }
 

@@ -20,6 +20,8 @@ int main() {
   //apas pe enter=send answer
   //FAC UPDATE URI cu sound in constructori
   //cum modific acele define uri
+  //in game.cpp fac rules
+  //player.h
 
 
 

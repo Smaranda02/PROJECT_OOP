@@ -17,6 +17,13 @@ public:
 };
 
 
+class eroare_jucatori : public eroare_aplicatie {
+public:
+    eroare_jucatori() : eroare_aplicatie("Eroare jucatori: Numarul maxim de playeri a fost atins!") {}
+    using eroare_aplicatie::eroare_aplicatie;
+};
+
+
 class eroare_input : public eroare_aplicatie{
 public:
     using eroare_aplicatie::eroare_aplicatie;

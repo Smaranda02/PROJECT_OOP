@@ -232,7 +232,11 @@ void PlayGame::updateSFMLEvents() {
 
                         }
 
-                        else std::cout<<"Bad cast\n";
+                        else {
+                            std::cout << "Bad cast\n";
+                            continue;
+                        }
+
 
                         sf::RenderWindow sadPopUp(sf::VideoMode(600, 130), "Sad...");
                         sf::Event event3{};

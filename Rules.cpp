@@ -16,20 +16,20 @@ Rules::Rules() {
         std::cout << "EROARE LA INCARACREA FONTULUI";
 
     rules.setString(" \n"
-                        "- The game starts when the player hits the PLAY button. \n"
-                        "- If the player wants to stop the game he/she can press\n"
-                        " the STOP button.\n"
-                        "- In order to exit the game press Escape key or click the\n"
-                        " X button in the top-right bar.\n"
-                        "- The allocated time for 1 round is 2 minutes in which the\n"
-                        " players has to guess as many word\n"
-                        "as possible. \n"
-                        "- In order to get a hint press the HINT button. One player\n"
-                        " has a maximum of 3 hints per word. Every hint requested\n"
-                        "decrements the score with 10 points.\n"
-                        "- Every letter in the word has the value of 10 points.\n"
-                        " Therefore the longer the word the bigger the reward. "
-                        );
+                    "- The game starts when the player hits the PLAY button. \n"
+                    "- If the player wants to stop the game he/she can press\n"
+                    " the STOP button.\n"
+                    "- In order to exit the game press Escape key or click the\n"
+                    " X button in the top-right bar.\n"
+                    "- The allocated time for 1 round is 2 minutes in which the\n"
+                    " players has to guess as many word\n"
+                    "as possible. \n"
+                    "- In order to get a hint press the HINT button. One player\n"
+                    " has a maximum of 3 hints per word. Every hint requested\n"
+                    "decrements the score with 10 points.\n"
+                    "- Every letter in the word has the value of 10 points.\n"
+                    " Therefore the longer the word the bigger the reward. "
+    );
 
 
     rules.setFont(font);
@@ -44,7 +44,7 @@ Rules::Rules() {
 
 void Rules::draw( )
 {
-        this->windowRules->draw(rules);
+    this->windowRules->draw(rules);
 }
 
 
@@ -52,16 +52,16 @@ sf::RenderWindow* Rules::getWindow() { return this->windowRules; }
 
 void Rules::SFMLevents() {
 
-        while (this->windowRules->pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
+    while (this->windowRules->pollEvent(event)) {
+        if (event.type == sf::Event::Closed) {
+            this->windowRules->close();
+        }
+        if (event.type == sf::Event::KeyPressed) {
+            if (event.key.code == sf::Keyboard::Escape)
                 this->windowRules->close();
-            }
-            if (event.type == sf::Event::KeyPressed) {
-                if (event.key.code == sf::Keyboard::Escape)
-                    this->windowRules->close();
-            }
         }
     }
+}
 
 
 
@@ -93,4 +93,3 @@ Rules& Rules::operator=(const Rules &other ) {
     this->rules=other.rules;
     this->event=other.event;
 }
-

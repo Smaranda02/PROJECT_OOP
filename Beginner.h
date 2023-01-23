@@ -11,6 +11,7 @@ private:
     int multiplyScore = 5; ///money received per word guessed = 5$
     int incrementScore=10;
 public:
+    Beginner()=default;
     Beginner(const std::string& name_, const std::string& surname_);
     [[nodiscard]] std::shared_ptr<Player> clone() const override;
     void set_money() override;
