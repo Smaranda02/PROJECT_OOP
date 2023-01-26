@@ -7,6 +7,8 @@
 #include <SFML/Graphics.hpp>
 #include "Exceptions.h"
 
+template
+class PlayerInput<int>;
 
 Game& Game::get_game() {
     static Game game;

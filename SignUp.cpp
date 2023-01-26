@@ -13,7 +13,6 @@
 //#include "Intermediate.h"
 //#include "Advanced.h"
 #include "PlayerInput.h"
-//#include "TemplateNewPlayer.h"
 #include "StartGameButton.h"
 #include "Factory.h"
 
@@ -33,17 +32,18 @@ void f(T object){
     }
 */
 
+template class PlayerInput<int>;
 
 bool SignUp::checkMaxPlayers() {
-    if(players.getVector().size()<=maxPlayers)
+    if(players.size()<=maxPlayers)
         return true;
     return false;
 }
 
 
 
-PlayerInput& SignUp::get_name() {return *(this->prenume); }
-PlayerInput& SignUp::get_surname() {return *(this->nume); }
+PlayerInput<int>& SignUp::get_name() {return *(this->prenume); }
+PlayerInput<int>& SignUp::get_surname() {return *(this->nume); }
 
 
 SignUp::SignUp() {
@@ -54,8 +54,8 @@ SignUp::SignUp() {
     float height = float(windowSignUp->getSize().y);
 
     try {
-        this->nume = new PlayerInput(15, sf::Color::White, false);
-        this->prenume = new PlayerInput(15, sf::Color::White, false);
+        this->nume = new PlayerInput<int>(15, sf::Color::White, false);
+        this->prenume = new PlayerInput<int>(15, sf::Color::White, false);
     } catch(const eroare_input& err){
         std::cout<<err.what()<<"\n";
     }
@@ -128,11 +128,11 @@ void SignUp::SFMLevents() {
             this->submitButton.update(static_cast<sf::Vector2f>(this->mousePosition));
 
             bool playersEmpty=false;
-            if(players.getVector().empty())
+            if(players.empty())
                 playersEmpty=true;
 
             ///if StartGame is pressed
-            if(this->playButton.update(static_cast<sf::Vector2f>(this->mousePosition), players.getVector().back(), playersEmpty))
+            if(this->playButton.update(static_cast<sf::Vector2f>(this->mousePosition), players.back(), playersEmpty))
             {
                 nume->deleteAll();
                 prenume->deleteAll();
@@ -219,8 +219,8 @@ SignUp::~SignUp(){
                                                       event{other.event},playButton{other.playButton},
                                                       submitButton{other.submitButton} {
 
-    this->players = *new VectorTemplate<Player>;
-    for (auto const &i: other.players.getVector()) { this->players.getVector().push_back(i->clone()); }
+    this->players = *new std::vector<std::shared_ptr<Player>>;
+    for (auto const &i: other.players) { this->players.push_back(i->clone()); }
 
     windowSignUp=new sf::RenderWindow;
    nume = new PlayerInput(*other.nume);
@@ -261,9 +261,9 @@ void SignUp::checkButtonState() {
 
         bool gasit=false;
         auto tmp_players = players;
-        std::cout<<"tmp_players";
 
-        for(auto& player : players.getVector())
+
+        for(auto& player : players)
             if( player->get_name() == this->prenume->get_text() && player->get_surname()==this->nume->get_text()) {
                 gasit=true;
 
@@ -275,9 +275,9 @@ void SignUp::checkButtonState() {
                       */
 
                      std::shared_ptr<Player> in= Factory::createPlayer(2, this->prenume->get_text(), this->nume->get_text());
-                     tmp_players.getVector().push_back(std::shared_ptr<Player>(in));
+                     tmp_players.push_back(std::shared_ptr<Player>(in));
 
-                     std::cout<< players.getVector().back()->get_name()<<" "<<players.getVector().back()->get_surname();
+                     std::cout<< players.back()->get_name()<<" "<<players.back()->get_surname();
                 }
 
                  else if (player->get_level() == 2) {
@@ -287,9 +287,9 @@ void SignUp::checkButtonState() {
                       */
 
                      std::shared_ptr<Player> ad= Factory::createPlayer(3, this->prenume->get_text(), this->nume->get_text());
-                     tmp_players.getVector().push_back(std::shared_ptr<Player>(ad));
+                     tmp_players.push_back(std::shared_ptr<Player>(ad));
 
-                     std::cout<< players.getVector().back()->get_name()<<" "<<players.getVector().back()->get_surname();
+                     std::cout<< players.back()->get_name()<<" "<<players.back()->get_surname();
                 }
 
 
@@ -303,18 +303,18 @@ void SignUp::checkButtonState() {
                       */
 
                      std::shared_ptr<Player> ad= Factory::createPlayer(3, this->prenume->get_text(), this->nume->get_text());
-                     tmp_players.getVector().push_back(std::shared_ptr<Player>(ad));
+                     tmp_players.push_back(std::shared_ptr<Player>(ad));
 
-                     std::cout<< players.getVector().back()->get_name()<<" "<<players.getVector().back()->get_surname();
+                     std::cout<< players.back()->get_name()<<" "<<players.back()->get_surname();
 
                  }
 
-                tmp_players.getVector().erase(std::remove(tmp_players.getVector().begin(), tmp_players.getVector().end(), player), tmp_players.getVector().end()); ///il sterg din vector si il reintroduc cu nivelul corect
+                tmp_players.erase(std::remove(tmp_players.begin(), tmp_players.end(), player), tmp_players.end()); ///il sterg din vector si il reintroduc cu nivelul corect
 
                 break;
             }
         std::cout << "--------\n";
-        for(auto& player : tmp_players.getVector())
+        for(auto& player : tmp_players)
             std::cout<< player->get_name()<<" "<<player->get_surname() << " " << player->get_level() << "\n";
         std::cout << "--------\n";
         players = tmp_players;
@@ -325,15 +325,15 @@ void SignUp::checkButtonState() {
                prenume->get_text();
                nume->get_text();
 
+
                std::shared_ptr<Player> b= Factory::createPlayer(1, this->prenume->get_text(), this->nume->get_text());
-               this->players.getVector().push_back(std::shared_ptr<Player>(b));
+               this->players.push_back(std::shared_ptr<Player>(b));
 
+//
+//               std::shared_ptr<Beginner> be = std::make_shared<Beginner>(this->prenume->get_text(),
+//                                                                         this->nume->get_text());
+//               this->players.push_back(std::shared_ptr<Beginner>(be));
 
-/*
-               std::shared_ptr<Beginner> be = std::make_shared<Beginner>(this->prenume->get_text(),
-                                                                         this->nume->get_text());
-               this->players.push_back(std::shared_ptr<Beginner>(be));
-*/
 
 
 

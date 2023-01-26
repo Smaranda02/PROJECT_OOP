@@ -133,7 +133,7 @@ PlayGame::PlayGame(const std::shared_ptr<Player>& player) {
     this->guessBox.setOutlineThickness(1);
 
 
-    this->inputWord = new PlayerInput(22, sf::Color::Red, false);
+    this->inputWord = new PlayerInput<int>(22, sf::Color::Red, false);
     this->inputWord->setFont(font);
     this->inputWord->setPosition(sf::Vector2f(170, 310));
 
@@ -440,7 +440,7 @@ PlayGame::PlayGame() {
     this->guessBox.setOutlineThickness(1);
 
 
-    this->inputWord = new PlayerInput(22, sf::Color::Red, false);
+    this->inputWord = new PlayerInput<int>(22, sf::Color::Red, false);
     this->inputWord->setFont(font);
     this->inputWord->setPosition(sf::Vector2f(170, 310));
 

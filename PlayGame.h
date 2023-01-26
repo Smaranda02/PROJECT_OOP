@@ -38,7 +38,7 @@ private:
     std::map<std::string, std::string> wordList;
     SendAnswer sendButton;
     sf::Vector2i mousePosition;
-    PlayerInput* inputWord;
+    PlayerInput<int>* inputWord;
     sf::Text wordGuessed;
     int wordsGuessed=0;
     sf::Text wordDef;
