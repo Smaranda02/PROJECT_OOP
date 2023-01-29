@@ -90,7 +90,7 @@ public:
     void setLimit(bool ToF, T lim) {
         hasLimit =ToF;
         limit = lim;
-        if(lim<0)
+        if(lim<=0)
             throw eroare_input("dimnesiune maxima negativa");
     }
 
