@@ -19,6 +19,7 @@ public:
     SubmitButton& operator=(const SubmitButton& other)=default;
     void set_ButtonState();
 
+
 protected:
     void afisare(std::ostream& os) const override;
 };

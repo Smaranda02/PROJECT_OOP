@@ -11,9 +11,9 @@
 //#include "Player/Player.h"
 #include "Player.h"
 #include "SubmitButton.h"
-#include "StartGameButton.h"
 #include <utility> //pentru swap
 #include "StartGameButton.h"
+#include "Decorator.h"
 
 
 class SignUp {
@@ -30,10 +30,10 @@ private:
     sf::RenderWindow* windowSignUp;
     sf::Event event{};
     PlayerInput<int>* nume;  //agregare
-    PlayerInput<int>* prenume;  //agregare
+    PlayerInput<unsigned int>* prenume;  //agregare
     std::vector<std::shared_ptr<Player>> players;  //agregare
     StartGameButton playButton;  //agregare
-    SubmitButton submitButton;   //agregare
+    Decorator submitButton;   //agregare
     sf::RectangleShape boxName;
     sf::RectangleShape boxSurname;
 
@@ -49,7 +49,7 @@ public:
     SignUp(const SignUp& other);
     ~SignUp();
     //std::vector<std::shared_ptr<Player>> get_players();
-    PlayerInput<int> & get_name() ;
+    PlayerInput<unsigned int> & get_name() ;
     PlayerInput<int>& get_surname();
     void SFMLevents();
     void checkButtonState();

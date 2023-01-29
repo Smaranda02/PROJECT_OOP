@@ -7,6 +7,7 @@
 #include "Exceptions.h"
 #include <fstream>
 #include "Beginner.h"
+#include "Decorator.h"
 
 
 std::string toUpperCase(std::string s)
@@ -27,6 +28,9 @@ std::string toUpperCase(std::string s)
  */
 
 PlayGame::PlayGame(const std::shared_ptr<Player>& player) {
+
+    Decorator::getSound().play();
+
     this->windowPlayGame.create(sf::VideoMode(800, 600), "PlayGame");
     this->windowPlayGame.setVerticalSyncEnabled(true);
     this->windowPlayGame.setFramerateLimit(60);
@@ -133,7 +137,7 @@ PlayGame::PlayGame(const std::shared_ptr<Player>& player) {
     this->guessBox.setOutlineThickness(1);
 
 
-    this->inputWord = new PlayerInput<int>(22, sf::Color::Red, false);
+    this->inputWord = new PlayerInput<unsigned short >(22, sf::Color::Red, false);
     this->inputWord->setFont(font);
     this->inputWord->setPosition(sf::Vector2f(170, 310));
 
@@ -440,7 +444,7 @@ PlayGame::PlayGame() {
     this->guessBox.setOutlineThickness(1);
 
 
-    this->inputWord = new PlayerInput<int>(22, sf::Color::Red, false);
+    this->inputWord = new PlayerInput<unsigned short>(22, sf::Color::Red, false);
     this->inputWord->setFont(font);
     this->inputWord->setPosition(sf::Vector2f(170, 310));
 

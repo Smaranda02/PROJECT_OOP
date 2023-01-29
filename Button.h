@@ -37,6 +37,9 @@ public:
 
 protected:
     virtual void afisare(std::ostream& os) const;
+
+public:
+     sf::Font &getFont() ;
 };
 
 

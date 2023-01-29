@@ -3,6 +3,7 @@
 //
 
 #include "SubmitButton.h"
+#include "Decorator.h"
 
 void SubmitButton::afisare(std::ostream& os) const{
     Button::afisare(os);
@@ -32,6 +33,7 @@ int SubmitButton::update(const sf::Vector2f mousePos)
 
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             this->isPressed= true;
+            Decorator::getSound().play();
             incrementPressed();
         }
 

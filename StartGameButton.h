@@ -10,6 +10,7 @@
 #include <iostream>
 #include "Player.h"
 
+
 class StartGameButton {
 private:
     sf::Color idleColor = sf::Color::Red ;
@@ -26,7 +27,8 @@ public:
     ~StartGameButton();
     void render(sf::RenderTarget *target);
     int update( sf::Vector2f mousePos, const std::shared_ptr<Player>& player, bool playersEmpty);
-    StartGameButton(const StartGameButton& other);
+
+    [[maybe_unused]] StartGameButton(const StartGameButton& other);
 
 
 };

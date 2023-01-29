@@ -13,7 +13,7 @@
 //#include "Intermediate.h"
 //#include "Advanced.h"
 #include "PlayerInput.h"
-#include "StartGameButton.h"
+//#include "StartGameButton.h"
 #include "Factory.h"
 
 /*
@@ -42,7 +42,7 @@ bool SignUp::checkMaxPlayers() {
 
 
 
-PlayerInput<int>& SignUp::get_name() {return *(this->prenume); }
+PlayerInput<unsigned int>& SignUp::get_name() {return *(this->prenume); }
 PlayerInput<int>& SignUp::get_surname() {return *(this->nume); }
 
 
@@ -55,7 +55,7 @@ SignUp::SignUp() {
 
     try {
         this->nume = new PlayerInput<int>(15, sf::Color::White, false);
-        this->prenume = new PlayerInput<int>(15, sf::Color::White, false);
+        this->prenume = new PlayerInput<unsigned int>(15, sf::Color::White, false);
     } catch(const eroare_input& err){
         std::cout<<err.what()<<"\n";
     }
@@ -77,8 +77,8 @@ SignUp::SignUp() {
                                          }
 
 
-    this->playButton =   StartGameButton(600,400,150,50, this->font, "Start Game");
-    this->submitButton = SubmitButton(600,300,150,50, this->font, "Submit");
+    this->playButton  =  StartGameButton(600,400,150,50, this->font, "Start Game");
+    this->submitButton = Decorator(600,300,150,50, this->font, "Submit");
 
 
     this->nume->setFont(font);
@@ -125,7 +125,7 @@ void SignUp::SFMLevents() {
         while (this->windowSignUp->pollEvent(event)) {
 
             this->updateMousePosition();
-            this->submitButton.update(static_cast<sf::Vector2f>(this->mousePosition));
+            this->submitButton.getSubmitButton().update(static_cast<sf::Vector2f>(this->mousePosition));
 
             bool playersEmpty=false;
             if(players.empty())
@@ -137,7 +137,7 @@ void SignUp::SFMLevents() {
                 nume->deleteAll();
                 prenume->deleteAll();
                 pressedOnce=false;
-                submitButton.set_ButtonState();
+                submitButton.getSubmitButton().set_ButtonState();
             }
 
              if (event.type == sf::Event::Closed) {
@@ -153,7 +153,8 @@ void SignUp::SFMLevents() {
             {
                 if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
                     this->prenume->setSelected(true);
-                    }
+
+                }
                 if(event.type == sf::Event::TextEntered)
                     prenume->typedOn(event);
 
@@ -185,17 +186,31 @@ void SignUp::SFMLevents() {
 
 void SignUp:: render() {
 
+    sf::Text title;
+
+    title.setFont(font);
+    title.setOutlineColor(sf::Color::Black);
+    title.setOutlineThickness(1.f);
+    title.setFillColor(sf::Color::White);
+    title.setString("                                             SIGN UP FORM \n"
+                    "                   PLEASE ENTER YOUR NAME AND SURNAME");
+    title.setPosition(sf::Vector2f(25, 50));
+    title.setCharacterSize(25); // in pixels, not points!
 
     this->windowSignUp->clear();
     this->nume->drawTo(*windowSignUp);
     this->prenume->drawTo(*windowSignUp);
 
+
     sf::RenderTarget* target = this->windowSignUp;
     draw(target);
     this->windowSignUp->draw(textPrenume);
     this->windowSignUp->draw(textNume);
+    this->windowSignUp->draw(title);
     this->playButton.render(target);
-    this->submitButton.render(target);
+    this->submitButton.getSubmitButton().render(target);
+    this->windowSignUp->draw(this->submitButton.getSprite());
+    this->windowSignUp->draw(this->submitButton.getText());
     this->windowSignUp->display();
 
 }
@@ -257,7 +272,7 @@ SignUp& SignUp::operator=(SignUp other) {
 
 void SignUp::checkButtonState() {
 
-    if(submitButton.get_buttonState() && !pressedOnce) {
+    if(submitButton.getSubmitButton().get_buttonState() && !pressedOnce) {
 
         bool gasit=false;
         auto tmp_players = players;

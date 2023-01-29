@@ -55,5 +55,9 @@ Button::Button(float x, float y, float width, float height, sf::Font& font, cons
     );
 }
 
+ sf::Font &Button::getFont()  {
+    return font;
+}
+
 
 

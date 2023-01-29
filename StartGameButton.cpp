@@ -5,7 +5,7 @@
 #include "StartGameButton.h"
 #include "PlayGame.h"
 
-StartGameButton::StartGameButton(const  StartGameButton& other) : idleColor{other.idleColor}, hoverColor{other.idleColor},
+[[maybe_unused]] StartGameButton::StartGameButton(const  StartGameButton& other) : idleColor{other.idleColor}, hoverColor{other.idleColor},
                                        text{other.text}, font{other.font} , shape{other.shape}{}
 
 

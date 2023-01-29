@@ -110,10 +110,10 @@ public:
             auto charTyped = input.text.unicode;
             if(charTyped < 128) {
                 if(hasLimit) {
-                    if(int(text.str().length()) <= limit  )
+                    if(int(text.str().length()) <= int(limit)  )
                         inputLogic((charTyped));
 
-                    else if(int(text.str().length()) > limit && charTyped == DELETE_KEY)
+                    else if(int(text.str().length()) > (int)limit && charTyped == DELETE_KEY)
                         deleteLastChar();
 
                 }
