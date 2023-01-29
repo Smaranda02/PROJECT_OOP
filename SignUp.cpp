@@ -42,7 +42,7 @@ bool SignUp::checkMaxPlayers() {
 
 
 
-PlayerInput<unsigned int>& SignUp::get_name() {return *(this->prenume); }
+PlayerInput<short>& SignUp::get_name() {return *(this->prenume); }
 PlayerInput<int>& SignUp::get_surname() {return *(this->nume); }
 
 
@@ -55,7 +55,7 @@ SignUp::SignUp() {
 
     try {
         this->nume = new PlayerInput<int>(15, sf::Color::White, false);
-        this->prenume = new PlayerInput<unsigned int>(15, sf::Color::White, false);
+        this->prenume = new PlayerInput<short>(15, sf::Color::White, false);
     } catch(const eroare_input& err){
         std::cout<<err.what()<<"\n";
     }

@@ -30,7 +30,7 @@ private:
     sf::RenderWindow* windowSignUp;
     sf::Event event{};
     PlayerInput<int>* nume;  //agregare
-    PlayerInput<unsigned int>* prenume;  //agregare
+    PlayerInput<short>* prenume;  //agregare
     std::vector<std::shared_ptr<Player>> players;  //agregare
     StartGameButton playButton;  //agregare
     Decorator submitButton;   //agregare
@@ -49,7 +49,7 @@ public:
     SignUp(const SignUp& other);
     ~SignUp();
     //std::vector<std::shared_ptr<Player>> get_players();
-    PlayerInput<unsigned int> & get_name() ;
+    PlayerInput<short> & get_name() ;
     PlayerInput<int>& get_surname();
     void SFMLevents();
     void checkButtonState();
