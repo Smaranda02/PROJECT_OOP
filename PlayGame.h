@@ -46,6 +46,8 @@ private:
     std::queue<definition> queue;
     sf::SoundBuffer soundBuffer;
     sf::Sound sound;
+    sf::RectangleShape scoreBox;
+
 
 public:
     PlayGame();

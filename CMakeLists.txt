@@ -155,4 +155,4 @@ target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-audio sfml-
 # copy binaries to bin folder; these are uploaded as artifacts on each release
 install(TARGETS ${PROJECT_NAME} DESTINATION bin)
 # install(DIRECTORY some_dir1 some_dir2 DESTINATION bin)
-install(FILES arial.ttf Jocul-Cuvintelor-Meniu.jpg Sound.wav wordList.txt startGame.wav submitPhoto.jpg click.mp3 DESTINATION bin)
+install(FILES arial.ttf Jocul-Cuvintelor-Meniu.jpg Sound.wav wordList.txt startGame.wav submitPhoto.jpg click.mp3 stars.jpg DESTINATION bin)

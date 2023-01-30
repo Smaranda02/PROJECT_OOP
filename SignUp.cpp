@@ -15,6 +15,7 @@
 #include "PlayerInput.h"
 //#include "StartGameButton.h"
 #include "Factory.h"
+#include <utility>
 
 /*
 std::vector<std::shared_ptr<Player>> SignUp::get_players(){
@@ -78,7 +79,7 @@ SignUp::SignUp() {
 
 
     this->playButton  =  StartGameButton(600,400,150,50, this->font, "Start Game");
-    this->submitButton = Decorator(600,300,150,50, this->font, "Submit");
+    this->submitButton = std::move(Decorator(600,300,150,50, this->font, "Submit"));
 
 
     this->nume->setFont(font);
@@ -153,6 +154,7 @@ void SignUp::SFMLevents() {
             {
                 if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
                     this->prenume->setSelected(true);
+                    Decorator::getSound().play();
 
                 }
                 if(event.type == sf::Event::TextEntered)
@@ -167,6 +169,8 @@ void SignUp::SFMLevents() {
                 if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
                     std::cout<<"OK";
                     this->nume->setSelected(true);
+                    Decorator::getSound().play();
+
                 }
 
                 if(event.type == sf::Event::TextEntered)
@@ -229,7 +233,7 @@ SignUp::~SignUp(){
 }
 
 
-
+/*
 [[maybe_unused]] SignUp::SignUp(const SignUp &other): textPrenume{other.textPrenume}, textNume{other.textNume}, font{other.font},mousePosition{other.mousePosition},
                                                       event{other.event},playButton{other.playButton},
                                                       submitButton{other.submitButton} {
@@ -241,14 +245,14 @@ SignUp::~SignUp(){
    nume = new PlayerInput(*other.nume);
    prenume=new PlayerInput(*other.prenume);
 }
-
+*/
 
 
 void swap(SignUp& signUp1, SignUp& signUp2)
 {
     using::std::swap;
     swap(signUp1.font, signUp2.font);
-    swap(signUp1.submitButton, signUp2.submitButton);
+    //swap(signUp1.submitButton, signUp2.submitButton);
     swap(signUp1.mousePosition,signUp2.mousePosition);
     swap(signUp1.windowSignUp,signUp2.windowSignUp);
     swap(signUp1.event,signUp2.event);

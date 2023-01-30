@@ -7,7 +7,9 @@
 #include "Exceptions.h"
 #include <fstream>
 #include "Beginner.h"
-#include "Decorator.h"
+//#include "Decorator.h"
+#include <chrono>
+#include <thread>
 
 
 std::string toUpperCase(std::string s)
@@ -29,7 +31,6 @@ std::string toUpperCase(std::string s)
 
 PlayGame::PlayGame(const std::shared_ptr<Player>& player) {
 
-    Decorator::getSound().play();
 
     this->windowPlayGame.create(sf::VideoMode(800, 600), "PlayGame");
     this->windowPlayGame.setVerticalSyncEnabled(true);
@@ -53,6 +54,15 @@ PlayGame::PlayGame(const std::shared_ptr<Player>& player) {
                 break;
             }
 
+        if(value.length()>38)
+        {
+            std::string space = " ";
+            std::string copy=value.substr(38,value.length()-1);
+            size_t found=copy.find(space);
+            if(found != std::string::npos)
+                value=value.substr(0,38+found)+"\n"+value.substr(38+found+1,value.length()-1);
+
+        }
         this->wordList[key]=value;
     }
 
@@ -130,11 +140,18 @@ PlayGame::PlayGame(const std::shared_ptr<Player>& player) {
     this->shape.setFillColor(sf::Color::Transparent);
 
 
-    this->guessBox.setPosition(sf::Vector2f(150,300));
+    this->scoreBox.setPosition(sf::Vector2f(370, 450));
+    this->scoreBox.setSize(sf::Vector2f(150, 50));
+    this->scoreBox.setOutlineColor(sf::Color::Black);
+    this->scoreBox.setOutlineThickness(2);
+    this->scoreBox.setFillColor(sf::Color::Cyan);
+
+
+    this->guessBox.setPosition(sf::Vector2f(170,300));
     this->guessBox.setSize(sf::Vector2f(350, 50));
     this->guessBox.setFillColor(sf::Color::Transparent);
     this->guessBox.setOutlineColor(sf::Color::Black);
-    this->guessBox.setOutlineThickness(1);
+    this->guessBox.setOutlineThickness(2);
 
 
     this->inputWord = new PlayerInput<double>(22, sf::Color::Red, false);
@@ -150,11 +167,11 @@ PlayGame::PlayGame(const std::shared_ptr<Player>& player) {
 
 
     wordDef.setFont(font);
-    wordDef.setOutlineColor(sf::Color::White);
-    wordDef.setOutlineThickness(1.f);
-    wordDef.setFillColor(sf::Color::Red);
+    wordDef.setOutlineColor(sf::Color::Black);
+    wordDef.setOutlineThickness(2.f);
+    wordDef.setFillColor(sf::Color::White);
     wordDef.setString("Definitia cuvantului");
-    wordDef.setPosition(sf::Vector2f(200, 50));
+    wordDef.setPosition(sf::Vector2f(300, 50));
     wordDef.setCharacterSize(25);
 
 
@@ -179,6 +196,7 @@ void swap(PlayGame& playGame1, PlayGame& playGame2)
     swap (playGame1.wordDef, playGame2.wordDef);
     swap(playGame1.soundBuffer,playGame2.soundBuffer);
     swap(playGame1.sound,playGame2.sound);
+    swap(playGame1.scoreBox,playGame2.scoreBox);
 
 
 }
@@ -275,6 +293,11 @@ void PlayGame::updateSFMLEvents() {
                         }
 
                     }
+
+                    using namespace std::this_thread;     // sleep_for, sleep_until
+                    using namespace std::chrono_literals; // ns, us, ms, s, h, etc.
+                    using std::chrono::system_clock;
+                    sleep_for(1.5s);
                     windowPlayGame.close();
                 }
                 sendPressed=0;
@@ -337,15 +360,52 @@ void PlayGame::render() {
     sf::RectangleShape background(sf::Vector2f(800, 600));
     background.setFillColor(sf::Color::Yellow);
 
+    sf::Text guess;
+    guess.setFont(font);
+    guess.setOutlineColor(sf::Color::Black);
+    guess.setOutlineThickness(2.f);
+    guess.setFillColor(sf::Color::White);
+    guess.setString("GHICESTE :");
+    guess.setPosition(sf::Vector2f(15, 310));
+    guess.setCharacterSize(25);
+
+
+    sf::Text score;
+    score.setFont(font);
+    score.setOutlineColor(sf::Color::Black);
+    score.setOutlineThickness(2.f);
+    score.setFillColor(sf::Color::White);
+    score.setString("SCORUL TAU :");
+    score.setPosition(sf::Vector2f(170, 460));
+    score.setCharacterSize(25);
+
+
+
     text.setString(queue.front().value);
     text.setPosition(sf::Vector2f(70, 120));
+
+
+    sf::Text scoreNumber;
+    scoreNumber.setFont(font);
+    scoreNumber.setOutlineColor(sf::Color::Black);
+    scoreNumber.setOutlineThickness(2.f);
+    scoreNumber.setFillColor(sf::Color::White);
+    scoreNumber.setString(std::to_string(playerInGame->getScore()));
+    scoreNumber.setPosition(sf::Vector2f(430, 460));
+    scoreNumber.setCharacterSize(25);
 
     this->windowPlayGame.clear();
     sf::RenderTarget* target = &this->windowPlayGame;
     this->windowPlayGame.draw(background);
     this->windowPlayGame.draw(text);
     this->windowPlayGame.draw(shape);
+    this->windowPlayGame.draw(scoreBox);
     this->windowPlayGame.draw(wordDef);
+    this->windowPlayGame.draw(guess);
+    this->windowPlayGame.draw(score);
+    this->windowPlayGame.draw(scoreNumber);
+
+
     draw(target);
     this->windowPlayGame.draw(wordGuessed);
     this->sendButton.render(target);
@@ -437,11 +497,17 @@ PlayGame::PlayGame() {
     this->shape.setFillColor(sf::Color::Transparent);
 
 
-    this->guessBox.setPosition(sf::Vector2f(150,300));
+    this->scoreBox.setPosition(sf::Vector2f(370, 450));
+    this->scoreBox.setSize(sf::Vector2f(150, 50));
+    this->scoreBox.setOutlineColor(sf::Color::Black);
+    this->scoreBox.setOutlineThickness(2);
+    this->scoreBox.setFillColor(sf::Color::Red);
+
+    this->guessBox.setPosition(sf::Vector2f(170,300));
     this->guessBox.setSize(sf::Vector2f(350, 50));
-    this->guessBox.setFillColor(sf::Color::Transparent);
-    this->guessBox.setOutlineColor(sf::Color::Black);
-    this->guessBox.setOutlineThickness(1);
+    this->guessBox.setFillColor(sf::Color::Red);
+    this->guessBox.setOutlineColor(sf::Color::Transparent);
+    this->guessBox.setOutlineThickness(2);
 
 
     this->inputWord = new PlayerInput<double>(22, sf::Color::Red, false);
@@ -455,12 +521,13 @@ PlayGame::PlayGame() {
     text.setFillColor(sf::Color::White);
     text.setCharacterSize(25);
 
+
     wordDef.setFont(font);
-    wordDef.setOutlineColor(sf::Color::White);
-    wordDef.setOutlineThickness(1.f);
-    wordDef.setFillColor(sf::Color::Red);
+    wordDef.setOutlineColor(sf::Color::Black);
+    wordDef.setOutlineThickness(2.f);
+    wordDef.setFillColor(sf::Color::White);
     wordDef.setString("Definitia cuvantului");
-    wordDef.setPosition(sf::Vector2f(200, 50));
+    wordDef.setPosition(sf::Vector2f(300, 50));
     wordDef.setCharacterSize(25);
 
 
@@ -482,8 +549,10 @@ void PlayGame::checkInputWord( const std::string& index) {
         wordsGuessed++;
         sound.play();
         inputWord->deleteAll();
-        if (this->playerInGame != nullptr)
+        if (this->playerInGame != nullptr) {
             this->playerInGame->updatePlayer();
+            std::cout<<playerInGame->getScore();
+        }
         sendPressed=4;
     }
     else {

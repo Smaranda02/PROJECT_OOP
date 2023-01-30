@@ -34,3 +34,7 @@ Player::Player (std::string   name_, std::string  surname_) : name{std::move(nam
 std::string Player::get_name() { return name;}
 
 std::string Player::get_surname() { return surname;}
+
+int Player::getScore() const {
+    return score;
+}

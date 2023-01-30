@@ -46,7 +46,7 @@ public:
     SignUp& operator=(SignUp other);
     void render();
     void draw(sf::RenderTarget* target);
-    SignUp(const SignUp& other);
+    //SignUp(const SignUp& other);
     ~SignUp();
     //std::vector<std::shared_ptr<Player>> get_players();
     PlayerInput<short> & get_name() ;
